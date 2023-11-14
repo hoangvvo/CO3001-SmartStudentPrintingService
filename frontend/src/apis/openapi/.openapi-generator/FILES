@@ -1,0 +1,10 @@
+.openapi-generator-ignore
+apis/DefaultApi.ts
+apis/index.ts
+index.ts
+models/GetCurrentUser200Response.ts
+models/User.ts
+models/UserLoginRequest.ts
+models/UserSignUpRequest.ts
+models/index.ts
+runtime.ts
