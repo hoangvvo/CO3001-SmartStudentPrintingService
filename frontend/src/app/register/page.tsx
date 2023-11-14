@@ -1,5 +1,6 @@
 "use client";
 
+import { parseResponseError } from "@/apis/error";
 import { userApi } from "@/apis/user";
 import { Button } from "@/components/ui/button";
 import {
@@ -46,10 +47,12 @@ export default function RegisterPage() {
       router.replace("/");
     },
     onError(error) {
-      toast({
-        title: "Registration failed",
-        description: error.message,
-        variant: "destructive",
+      parseResponseError(error).then((error) => {
+        toast({
+          title: "Registration failed",
+          description: error.message,
+          variant: "destructive",
+        });
       });
     },
   });
