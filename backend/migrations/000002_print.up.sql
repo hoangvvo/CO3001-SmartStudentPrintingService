@@ -14,10 +14,8 @@ CREATE TABLE printer (
   brand_name VARCHAR(255) NULL,
   model_name VARCHAR(255) NULL,
   capabilities printer_capability[] NOT NULL,
-  building_name VARCHAR(255) NOT NULL,
-  room_number VARCHAR(255) NOT NULL,
+  location VARCHAR(255) NOT NULL,
   is_enabled BOOLEAN NOT NULL DEFAULT TRUE,
-  is_deleted BOOLEAN NOT NULL DEFAULT FALSE,
   printer_address VARCHAR(255) NOT NULL, -- ipp://printer.example.com/ipp/print or http://printer.example.com:631/ipp/print
 );
 
@@ -27,8 +25,7 @@ CREATE TABLE user_file (
   file_name VARCHAR(255) NOT NULL,
   file_size INTEGER NOT NULL,
   file_type VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-  is_deleted BOOLEAN NOT NULL DEFAULT FALSE
+  created_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE printer_job (

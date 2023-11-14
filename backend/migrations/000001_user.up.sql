@@ -1,7 +1,5 @@
 BEGIN;
 
-CREATE
-
 CREATE TABLE app_user (
     id SERIAL PRIMARY KEY,
     email VARCHAR(255) NOT NULL UNIQUE,
