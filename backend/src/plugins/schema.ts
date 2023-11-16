@@ -1,6 +1,7 @@
 import swagger from "@fastify/swagger";
 import swaggerUi from "@fastify/swagger-ui";
 import fp from "fastify-plugin";
+import { printerSchema } from "../routes/printer/schema.js";
 import { userSchema } from "../routes/user/schema.js";
 
 export const schemaSetup = fp(async (fastify) => {
@@ -19,4 +20,5 @@ export const schemaSetup = fp(async (fastify) => {
     transformSpecificationClone: true,
   });
   fastify.addSchema(userSchema);
+  fastify.addSchema(printerSchema);
 });
