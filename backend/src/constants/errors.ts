@@ -5,6 +5,11 @@ export const UnauthorizedError = createError(
   "You must be logged in to access this resource",
   401,
 );
+export const ForbiddenError = createError(
+  "FORBIDDEN",
+  "You are not allowed to access this resource",
+  403,
+);
 export const NotFoundError = createError(
   "NOT_FOUND",
   "Resource not found",

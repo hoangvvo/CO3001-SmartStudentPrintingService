@@ -2,7 +2,13 @@
 apis/DefaultApi.ts
 apis/index.ts
 index.ts
+models/CreatePrinter200Response.ts
+models/CreatePrinterRequest.ts
+models/CreatePrinterRequestCapabilitiesInner.ts
 models/GetCurrentUser200Response.ts
+models/ListPrinters200Response.ts
+models/Printer.ts
+models/UpdatePrinterRequest.ts
 models/User.ts
 models/UserLoginRequest.ts
 models/UserSignUpRequest.ts

@@ -15,18 +15,47 @@
 
 import * as runtime from '../runtime';
 import type {
+  CreatePrinter200Response,
+  CreatePrinterRequest,
   GetCurrentUser200Response,
+  ListPrinters200Response,
+  UpdatePrinterRequest,
   UserLoginRequest,
   UserSignUpRequest,
 } from '../models/index';
 import {
+    CreatePrinter200ResponseFromJSON,
+    CreatePrinter200ResponseToJSON,
+    CreatePrinterRequestFromJSON,
+    CreatePrinterRequestToJSON,
     GetCurrentUser200ResponseFromJSON,
     GetCurrentUser200ResponseToJSON,
+    ListPrinters200ResponseFromJSON,
+    ListPrinters200ResponseToJSON,
+    UpdatePrinterRequestFromJSON,
+    UpdatePrinterRequestToJSON,
     UserLoginRequestFromJSON,
     UserLoginRequestToJSON,
     UserSignUpRequestFromJSON,
     UserSignUpRequestToJSON,
 } from '../models/index';
+
+export interface CreatePrinterOperationRequest {
+    createPrinterRequest: CreatePrinterRequest;
+}
+
+export interface DeletePrinterRequest {
+    id: number;
+}
+
+export interface GetPrinterRequest {
+    id: number;
+}
+
+export interface UpdatePrinterOperationRequest {
+    id: number;
+    updatePrinterRequest: UpdatePrinterRequest;
+}
 
 export interface UserLoginOperationRequest {
     userLoginRequest: UserLoginRequest;
@@ -40,6 +69,64 @@ export interface UserSignUpOperationRequest {
  * 
  */
 export class DefaultApi extends runtime.BaseAPI {
+
+    /**
+     */
+    async createPrinterRaw(requestParameters: CreatePrinterOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreatePrinter200Response>> {
+        if (requestParameters.createPrinterRequest === null || requestParameters.createPrinterRequest === undefined) {
+            throw new runtime.RequiredError('createPrinterRequest','Required parameter requestParameters.createPrinterRequest was null or undefined when calling createPrinter.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/printer/`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreatePrinterRequestToJSON(requestParameters.createPrinterRequest),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CreatePrinter200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async createPrinter(requestParameters: CreatePrinterOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreatePrinter200Response> {
+        const response = await this.createPrinterRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async deletePrinterRaw(requestParameters: DeletePrinterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deletePrinter.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/printer/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async deletePrinter(requestParameters: DeletePrinterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deletePrinterRaw(requestParameters, initOverrides);
+    }
 
     /**
      */
@@ -62,6 +149,93 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async getCurrentUser(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetCurrentUser200Response> {
         const response = await this.getCurrentUserRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async getPrinterRaw(requestParameters: GetPrinterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreatePrinter200Response>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getPrinter.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/printer/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CreatePrinter200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async getPrinter(requestParameters: GetPrinterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreatePrinter200Response> {
+        const response = await this.getPrinterRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async listPrintersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListPrinters200Response>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/printer/`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListPrinters200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async listPrinters(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListPrinters200Response> {
+        const response = await this.listPrintersRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async updatePrinterRaw(requestParameters: UpdatePrinterOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreatePrinter200Response>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling updatePrinter.');
+        }
+
+        if (requestParameters.updatePrinterRequest === null || requestParameters.updatePrinterRequest === undefined) {
+            throw new runtime.RequiredError('updatePrinterRequest','Required parameter requestParameters.updatePrinterRequest was null or undefined when calling updatePrinter.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/printer/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdatePrinterRequestToJSON(requestParameters.updatePrinterRequest),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CreatePrinter200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async updatePrinter(requestParameters: UpdatePrinterOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreatePrinter200Response> {
+        const response = await this.updatePrinterRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

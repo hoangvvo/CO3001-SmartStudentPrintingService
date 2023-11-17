@@ -22,6 +22,7 @@
     "@fastify/swagger-ui": "^1.10.1",
     "@sinclair/typebox": "^0.31.22",
     "argon2": "^0.31.2",
+    "bullmq": "^4.14.4",
     "env-schema": "^5.2.1",
     "fastify": "^4.24.3",
     "fastify-plugin": "^4.5.1",
