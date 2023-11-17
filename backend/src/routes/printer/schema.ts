@@ -3,12 +3,18 @@ import type { FastifySchema } from "fastify";
 import { PrinterCapability } from "../../database/types.js";
 import { TypeNullable } from "../../utils/typebox.js";
 
-export const printerSchema = Type.Object({
-  id: Type.Number(),
-  brand_name: TypeNullable(Type.String()),
-  model_name: TypeNullable(Type.String()),
-  capabilities: Type.Array(Type.Enum(PrinterCapability)),
-});
+export const printerSchema = Type.Object(
+  {
+    id: Type.Number(),
+    brand_name: TypeNullable(Type.String()),
+    model_name: TypeNullable(Type.String()),
+    capabilities: Type.Array(Type.Enum(PrinterCapability)),
+  },
+  {
+    $id: "Printer",
+    title: "Printer",
+  },
+);
 
 export const printerGetSchema = {
   operationId: "getPrinter",
