@@ -4,7 +4,6 @@ apis/index.ts
 index.ts
 models/CreatePrinter200Response.ts
 models/CreatePrinterRequest.ts
-models/CreatePrinterRequestCapabilitiesInner.ts
 models/GetCurrentUser200Response.ts
 models/ListPrinters200Response.ts
 models/Printer.ts

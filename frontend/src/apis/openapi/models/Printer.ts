@@ -13,13 +13,6 @@
  */
 
 import { exists, mapValues } from '../runtime';
-import type { CreatePrinterRequestCapabilitiesInner } from './CreatePrinterRequestCapabilitiesInner';
-import {
-    CreatePrinterRequestCapabilitiesInnerFromJSON,
-    CreatePrinterRequestCapabilitiesInnerFromJSONTyped,
-    CreatePrinterRequestCapabilitiesInnerToJSON,
-} from './CreatePrinterRequestCapabilitiesInner';
-
 /**
  * 
  * @export
@@ -46,11 +39,44 @@ export interface Printer {
     model_name: string | null;
     /**
      * 
-     * @type {Array<CreatePrinterRequestCapabilitiesInner>}
+     * @type {Array<string>}
      * @memberof Printer
      */
-    capabilities: Array<CreatePrinterRequestCapabilitiesInner>;
+    capabilities: Array<PrinterCapabilitiesEnum>;
+    /**
+     * 
+     * @type {string}
+     * @memberof Printer
+     */
+    location: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof Printer
+     */
+    printer_address: string;
+    /**
+     * 
+     * @type {boolean}
+     * @memberof Printer
+     */
+    is_enabled: boolean;
 }
+
+
+/**
+ * @export
+ */
+export const PrinterCapabilitiesEnum = {
+    Print: 'print',
+    Scan: 'scan',
+    Copy: 'copy',
+    Fax: 'fax',
+    Color: 'color',
+    DoubleSided: 'double_sided'
+} as const;
+export type PrinterCapabilitiesEnum = typeof PrinterCapabilitiesEnum[keyof typeof PrinterCapabilitiesEnum];
+
 
 /**
  * Check if a given object implements the Printer interface.
@@ -61,6 +87,9 @@ export function instanceOfPrinter(value: object): boolean {
     isInstance = isInstance && "brand_name" in value;
     isInstance = isInstance && "model_name" in value;
     isInstance = isInstance && "capabilities" in value;
+    isInstance = isInstance && "location" in value;
+    isInstance = isInstance && "printer_address" in value;
+    isInstance = isInstance && "is_enabled" in value;
 
     return isInstance;
 }
@@ -78,7 +107,10 @@ export function PrinterFromJSONTyped(json: any, ignoreDiscriminator: boolean): P
         'id': json['id'],
         'brand_name': json['brand_name'],
         'model_name': json['model_name'],
-        'capabilities': ((json['capabilities'] as Array<any>).map(CreatePrinterRequestCapabilitiesInnerFromJSON)),
+        'capabilities': json['capabilities'],
+        'location': json['location'],
+        'printer_address': json['printer_address'],
+        'is_enabled': json['is_enabled'],
     };
 }
 
@@ -94,7 +126,10 @@ export function PrinterToJSON(value?: Printer | null): any {
         'id': value.id,
         'brand_name': value.brand_name,
         'model_name': value.model_name,
-        'capabilities': ((value.capabilities as Array<any>).map(CreatePrinterRequestCapabilitiesInnerToJSON)),
+        'capabilities': value.capabilities,
+        'location': value.location,
+        'printer_address': value.printer_address,
+        'is_enabled': value.is_enabled,
     };
 }
 
