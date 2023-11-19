@@ -13,13 +13,6 @@
  */
 
 import { exists, mapValues } from '../runtime';
-import type { CreatePrinterRequestCapabilitiesInner } from './CreatePrinterRequestCapabilitiesInner';
-import {
-    CreatePrinterRequestCapabilitiesInnerFromJSON,
-    CreatePrinterRequestCapabilitiesInnerFromJSONTyped,
-    CreatePrinterRequestCapabilitiesInnerToJSON,
-} from './CreatePrinterRequestCapabilitiesInner';
-
 /**
  * 
  * @export
@@ -40,10 +33,10 @@ export interface CreatePrinterRequest {
     model_name: string | null;
     /**
      * 
-     * @type {Array<CreatePrinterRequestCapabilitiesInner>}
+     * @type {Array<string>}
      * @memberof CreatePrinterRequest
      */
-    capabilities: Array<CreatePrinterRequestCapabilitiesInner>;
+    capabilities: Array<CreatePrinterRequestCapabilitiesEnum>;
     /**
      * 
      * @type {string}
@@ -57,6 +50,21 @@ export interface CreatePrinterRequest {
      */
     printer_address: string;
 }
+
+
+/**
+ * @export
+ */
+export const CreatePrinterRequestCapabilitiesEnum = {
+    Print: 'print',
+    Scan: 'scan',
+    Copy: 'copy',
+    Fax: 'fax',
+    Color: 'color',
+    DoubleSided: 'double_sided'
+} as const;
+export type CreatePrinterRequestCapabilitiesEnum = typeof CreatePrinterRequestCapabilitiesEnum[keyof typeof CreatePrinterRequestCapabilitiesEnum];
+
 
 /**
  * Check if a given object implements the CreatePrinterRequest interface.
@@ -84,7 +92,7 @@ export function CreatePrinterRequestFromJSONTyped(json: any, ignoreDiscriminator
         
         'brand_name': json['brand_name'],
         'model_name': json['model_name'],
-        'capabilities': ((json['capabilities'] as Array<any>).map(CreatePrinterRequestCapabilitiesInnerFromJSON)),
+        'capabilities': json['capabilities'],
         'location': json['location'],
         'printer_address': json['printer_address'],
     };
@@ -101,7 +109,7 @@ export function CreatePrinterRequestToJSON(value?: CreatePrinterRequest | null):
         
         'brand_name': value.brand_name,
         'model_name': value.model_name,
-        'capabilities': ((value.capabilities as Array<any>).map(CreatePrinterRequestCapabilitiesInnerToJSON)),
+        'capabilities': value.capabilities,
         'location': value.location,
         'printer_address': value.printer_address,
     };

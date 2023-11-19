@@ -1,14 +1,17 @@
 import { Type } from "@sinclair/typebox";
 import type { FastifySchema } from "fastify";
 import { PrinterCapability } from "../../database/types.js";
-import { TypeNullable } from "../../utils/typebox.js";
+import { TypeNullable, TypeStringEnum } from "../../utils/typebox.js";
 
 export const printerSchema = Type.Object(
   {
     id: Type.Number(),
     brand_name: TypeNullable(Type.String()),
     model_name: TypeNullable(Type.String()),
-    capabilities: Type.Array(Type.Enum(PrinterCapability)),
+    capabilities: Type.Array(TypeStringEnum(PrinterCapability)),
+    location: TypeNullable(Type.String()),
+    printer_address: Type.String(),
+    is_enabled: Type.Boolean(),
   },
   {
     $id: "Printer",
@@ -42,7 +45,7 @@ export const printerCreateSchema = {
   body: Type.Object({
     brand_name: TypeNullable(Type.String()),
     model_name: TypeNullable(Type.String()),
-    capabilities: Type.Array(Type.Enum(PrinterCapability)),
+    capabilities: Type.Array(TypeStringEnum(PrinterCapability)),
     location: TypeNullable(Type.String()),
     printer_address: Type.String(),
   }),
@@ -61,7 +64,7 @@ export const printerUpdateSchema = {
   body: Type.Object({
     brand_name: TypeNullable(Type.String()),
     model_name: TypeNullable(Type.String()),
-    capabilities: Type.Array(Type.Enum(PrinterCapability)),
+    capabilities: Type.Array(TypeStringEnum(PrinterCapability)),
     location: TypeNullable(Type.String()),
     printer_address: Type.String(),
     is_enabled: Type.Boolean(),

@@ -126,8 +126,8 @@ const Navbar: React.FC = () => {
         </Link>
         <div className="flex items-center justify-start gap-4 flex-1">
           <NavbarLink href="/">Home</NavbarLink>
-          <NavbarLink href="/check-ins">Print History</NavbarLink>
-          <NavbarLink href="/floors">Printer List</NavbarLink>
+          <NavbarLink href="/history">Print History</NavbarLink>
+          <NavbarLink href="/printers">Printer List</NavbarLink>
         </div>
         <NavbarSearch />
         <NavbarUser />

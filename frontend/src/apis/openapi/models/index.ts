@@ -2,7 +2,6 @@
 /* eslint-disable */
 export * from './CreatePrinter200Response';
 export * from './CreatePrinterRequest';
-export * from './CreatePrinterRequestCapabilitiesInner';
 export * from './GetCurrentUser200Response';
 export * from './ListPrinters200Response';
 export * from './Printer';
