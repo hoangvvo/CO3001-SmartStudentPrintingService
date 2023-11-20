@@ -48,6 +48,7 @@ export const printerRepository = {
       SELECT * FROM printer
     `,
     );
+    console.log(res.fields);
 
     return res.rows;
   },

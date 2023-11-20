@@ -28,7 +28,7 @@ npm run dev
 We use [golang-migrate/migrate](https://github.com/golang-migrate/migrate) for migration.
 
 ```sh
-migrate -source file://./migrations -database "$DATABASE_URL?options=endpoint%3D[endpoint_id]" up
+migrate -source file://./migrations -database "$DATABASE_URL"
 ```
 
 2. Create new migration file, run:

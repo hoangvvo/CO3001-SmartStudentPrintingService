@@ -27,7 +27,9 @@
     "fastify": "^4.24.3",
     "fastify-plugin": "^4.5.1",
     "nanoid": "^5.0.2",
-    "pg": "^8.11.3"
+    "pg": "^8.11.3",
+    "pino-pretty": "^10.2.3",
+    "recharts": "^2.10.2"
   },
   "devDependencies": {
     "@fastify/type-provider-typebox": "^3.5.0",

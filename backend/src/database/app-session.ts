@@ -18,7 +18,8 @@ export const appSessionRepository = {
       SELECT
         u.id,
         u.email,
-        u.name
+        u.name,
+        u.role
       FROM app_user u
       JOIN app_session s
         ON u.id = s.user_id

@@ -7,7 +7,11 @@ export const parseResponseError = async (error: Error) => {
   const text = await error.response.text();
   try {
     const json = JSON.parse(text);
-    return new Error(json.message);
+    return new Error(
+      json.message ||
+        json.error ||
+        `Request failed with status code ${error.response.status}`,
+    );
   } catch (e) {
     return new Error(error.message);
   }
