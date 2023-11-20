@@ -1,7 +1,8 @@
 import type { FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox";
-import { ConflictError, UnauthorizedError } from "../../constants/errors.js";
+import { ConflictError } from "../../constants/errors.js";
 import { appUserRepository } from "../../database/app-user.js";
 import { authService } from "../../services/auth.js";
+import { InvalidCredentialsError } from "./error.js";
 import {
   userGetSchema,
   userLoginSchema,
@@ -63,7 +64,7 @@ export const userRouter: FastifyPluginAsyncTypebox = async (fastify) => {
       const user = await appUserRepository.getUserByEmail(email);
 
       if (!user) {
-        throw new UnauthorizedError("Email or password is incorrect");
+        throw new InvalidCredentialsError();
       }
 
       const passwordMatch = await authService.comparePassword(
@@ -72,7 +73,7 @@ export const userRouter: FastifyPluginAsyncTypebox = async (fastify) => {
       );
 
       if (!passwordMatch) {
-        throw new UnauthorizedError("Email or password is incorrect");
+        throw new InvalidCredentialsError();
       }
 
       const { token: authToken, expiresAt } = await authService.createSession(

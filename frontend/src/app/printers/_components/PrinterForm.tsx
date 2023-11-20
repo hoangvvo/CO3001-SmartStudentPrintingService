@@ -18,20 +18,37 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const formSchema = z.object({
-  brand_name: z.string(),
-  model_name: z.string(),
-  capabilities: z.array(z.nativeEnum(PrinterCapabilitiesEnum)),
-  location: z.string(),
+  brand_name: z.string().min(1, {
+    message: "Brand name cannot be empty",
+  }),
+  model_name: z.string().min(1, {
+    message: "Model name cannot be empty",
+  }),
+  capabilities: z.array(z.nativeEnum(PrinterCapabilitiesEnum)).min(1, {
+    message: "Must have at least one capability",
+  }),
+  location: z.string().min(1, {
+    message: "Location cannot be empty",
+  }),
   printer_address: z.string().ip({
     message: "Invalid printer address",
   }),
   is_enabled: z.boolean(),
 });
 
+const CAPABILITIES_LABELS: Record<PrinterCapabilitiesEnum, string> = {
+  [PrinterCapabilitiesEnum.Print]: "Print",
+  [PrinterCapabilitiesEnum.Scan]: "Scan",
+  [PrinterCapabilitiesEnum.Copy]: "Copy",
+  [PrinterCapabilitiesEnum.Fax]: "Fax",
+  [PrinterCapabilitiesEnum.Color]: "Color",
+  [PrinterCapabilitiesEnum.DoubleSided]: "Double Sided",
+};
+
 export const PrinterForm: FC<{
   initialValues?: z.infer<typeof formSchema>;
   disabled?: boolean;
-  onSubmit: (values: z.infer<typeof formSchema>) => Promise<void>;
+  onSubmit: (values: z.infer<typeof formSchema>) => void;
   submitLabel: string;
 }> = ({ initialValues, onSubmit, disabled, submitLabel }) => {
   const form = useForm<z.infer<typeof formSchema>>({
@@ -50,8 +67,37 @@ export const PrinterForm: FC<{
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full flex gap-2 flex-col"
+        className="w-full flex gap-4 flex-col"
       >
+        <FormField
+          control={form.control}
+          name="is_enabled"
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-center space-x-2 space-y-0">
+              <FormControl>
+                <Switch
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
+              </FormControl>
+              <FormLabel>Enabled</FormLabel>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="printer_address"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Printer Address</FormLabel>
+              <FormControl>
+                <Input {...field} placeholder="Printer IP Address" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           control={form.control}
           name="brand_name"
@@ -88,7 +134,7 @@ export const PrinterForm: FC<{
                   Printer Capabilities
                 </FormLabel>
                 <FormDescription>
-                  Select the capabilities of this printer.
+                  Specify what this printer can do
                 </FormDescription>
               </div>
               {Object.values(PrinterCapabilitiesEnum).map((capability) => (
@@ -100,7 +146,7 @@ export const PrinterForm: FC<{
                     return (
                       <FormItem
                         key={capability}
-                        className="flex flex-row items-start space-x-3 space-y-0"
+                        className="flex flex-row items-center space-x-3 space-y-0"
                       >
                         <FormControl>
                           <Checkbox
@@ -117,7 +163,7 @@ export const PrinterForm: FC<{
                           />
                         </FormControl>
                         <FormLabel className="text-sm font-normal">
-                          {capability}
+                          {CAPABILITIES_LABELS[capability]}
                         </FormLabel>
                       </FormItem>
                     );
@@ -137,37 +183,6 @@ export const PrinterForm: FC<{
               <FormControl>
                 <Input {...field} placeholder="B4 404" />
               </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="printer_address"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Printer Address</FormLabel>
-              <FormControl>
-                <Input {...field} placeholder="Printer IP Address" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="is_enabled"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Switch
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                  disabled
-                  aria-readonly
-                />
-              </FormControl>
-              <FormLabel>Enabled</FormLabel>
               <FormMessage />
             </FormItem>
           )}

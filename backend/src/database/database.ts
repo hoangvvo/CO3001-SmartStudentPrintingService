@@ -6,5 +6,4 @@ export const pool = new pg.Pool({
   idleTimeoutMillis: 30000,
   connectionTimeoutMillis: 2000,
   connectionString: DATABASE_URL,
-  ssl: true,
 });

@@ -1,22 +1,14 @@
 BEGIN;
 
-CREATE TYPE printer_capability AS ENUM (
-  'print',
-  'scan',
-  'copy',
-  'fax',
-  'color',
-  'double_sided'
-);
 
 CREATE TABLE printer (
   id SERIAL PRIMARY KEY,
   brand_name VARCHAR(255) NULL,
   model_name VARCHAR(255) NULL,
-  capabilities printer_capability[] NOT NULL,
+  capabilities VARCHAR[] NOT NULL,
   location VARCHAR(255) NOT NULL,
   is_enabled BOOLEAN NOT NULL DEFAULT TRUE,
-  printer_address VARCHAR(255) NOT NULL, -- ipp://printer.example.com/ipp/print or http://printer.example.com:631/ipp/print
+  printer_address VARCHAR(255) NOT NULL -- ipp://printer.example.com/ipp/print or http://printer.example.com:631/ipp/print
 );
 
 CREATE TABLE user_file (

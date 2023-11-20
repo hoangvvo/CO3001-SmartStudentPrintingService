@@ -6,7 +6,14 @@ import { schemaSetup } from "./plugins/schema.js";
 import { printerRouter } from "./routes/printer/route.js";
 import { userRouter } from "./routes/user/route.js";
 
-const app = fastify();
+const app = fastify({
+  logger: {
+    transport: {
+      target: "pino-pretty",
+    },
+  },
+  disableRequestLogging: true,
+});
 
 app.register(fastifyCookie);
 
@@ -15,11 +22,16 @@ await app.register(authentication);
 await app.register(schemaSetup);
 
 await app.register(userRouter, {
-  prefix: "/user",
+  prefix: "/users",
 });
 
 await app.register(printerRouter, {
-  prefix: "/printer",
+  prefix: "/printers",
+});
+
+app.setErrorHandler(function (error, request, reply) {
+  this.log.error(error);
+  reply.send(error);
 });
 
 await app.listen({ port: PORT, host: "0.0.0.0" });
