@@ -12,6 +12,9 @@ export const printerSchema = Type.Object(
     location: TypeNullable(Type.String()),
     printer_address: Type.String(),
     is_enabled: Type.Boolean(),
+    image_url: TypeNullable(Type.String()),
+    paper_sizes: Type.Array(Type.String()),
+    paper_count: Type.Number(),
   },
   {
     $id: "Printer",
@@ -48,6 +51,9 @@ export const printerCreateSchema = {
     capabilities: Type.Array(TypeStringEnum(PrinterCapability)),
     location: TypeNullable(Type.String()),
     printer_address: Type.String(),
+    image_url: TypeNullable(Type.String()),
+    paper_sizes: Type.Array(Type.String()),
+    paper_count: Type.Number(),
   }),
   response: {
     200: Type.Object({
@@ -68,6 +74,9 @@ export const printerUpdateSchema = {
     location: TypeNullable(Type.String()),
     printer_address: Type.String(),
     is_enabled: Type.Boolean(),
+    image_url: TypeNullable(Type.String()),
+    paper_sizes: Type.Array(Type.String()),
+    paper_count: Type.Number(),
   }),
   response: {
     200: Type.Object({
