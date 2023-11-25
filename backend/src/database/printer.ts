@@ -8,11 +8,14 @@ export const printerRepository = {
     capabilities: string[];
     location: string | null;
     printer_address: string;
+    image_url: string | null;
+    paper_sizes: string[];
+    paper_count: number;
   }) {
     const res = await pool.query<PrinterDbObject>(
       `
-      INSERT INTO printer (brand_name, model_name, capabilities, location, printer_address)
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO printer (brand_name, model_name, capabilities, location, printer_address, image_url, paper_sizes, paper_count)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
       RETURNING *
     `,
       [
@@ -21,6 +24,9 @@ export const printerRepository = {
         printer.capabilities,
         printer.location,
         printer.printer_address,
+        printer.image_url,
+        printer.paper_sizes,
+        printer.paper_count,
       ],
     );
 
@@ -48,7 +54,6 @@ export const printerRepository = {
       SELECT * FROM printer
     `,
     );
-    console.log(res.fields);
 
     return res.rows;
   },
@@ -62,13 +67,16 @@ export const printerRepository = {
       location: string | null;
       printer_address: string;
       is_enabled: boolean;
+      image_url: string | null;
+      paper_sizes: string[];
+      paper_count: number;
     }>,
   ) {
     const res = await pool.query<PrinterDbObject>(
       `
       UPDATE printer
-      SET brand_name = $1, model_name = $2, capabilities = $3, location = $4, printer_address = $5, is_enabled = $6
-      WHERE id = $7
+      SET brand_name = $1, model_name = $2, capabilities = $3, location = $4, printer_address = $5, is_enabled = $6, image_url = $7, paper_sizes = $8, paper_count = $9
+      WHERE id = $10
       RETURNING *
     `,
       [
@@ -78,6 +86,9 @@ export const printerRepository = {
         printer.location,
         printer.printer_address,
         printer.is_enabled,
+        printer.image_url,
+        printer.paper_sizes,
+        printer.paper_count,
         id,
       ],
     );

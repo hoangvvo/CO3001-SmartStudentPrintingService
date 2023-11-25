@@ -1,0 +1,8 @@
+BEGIN;
+
+ALTER TABLE printer
+ADD image_url VARCHAR(255) NULL,
+ADD paper_sizes VARCHAR[] NOT NULL,
+ADD paper_count INTEGER NOT NULL DEFAULT 0;
+
+COMMIT;

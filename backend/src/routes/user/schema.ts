@@ -1,12 +1,14 @@
 import { Type } from "@sinclair/typebox";
 import type { FastifySchema } from "fastify";
-import { TypeNullable } from "../../utils/typebox.js";
+import { UserRole } from "../../database/types.js";
+import { TypeNullable, TypeStringEnum } from "../../utils/typebox.js";
 
 export const userSchema = Type.Object(
   {
     id: Type.Number(),
     email: Type.String(),
     name: Type.String(),
+    role: TypeStringEnum(UserRole),
   },
   {
     $id: "User",

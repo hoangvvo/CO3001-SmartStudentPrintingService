@@ -1,3 +1,9 @@
+export enum UserRole {
+  Admin = "admin",
+  SPSO = "spso",
+  User = "user",
+}
+
 export interface UserDbObject {
   id: number;
   email: string;
@@ -32,6 +38,9 @@ export interface PrinterDbObject {
   location: string | null;
   is_enabled: boolean;
   printer_address: string;
+  image_url: string | null;
+  paper_sizes: string[];
+  paper_count: number;
 }
 
 export interface UserFileDbObject {
