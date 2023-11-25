@@ -37,7 +37,25 @@ export interface User {
      * @memberof User
      */
     name: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof User
+     */
+    role: UserRoleEnum;
 }
+
+
+/**
+ * @export
+ */
+export const UserRoleEnum = {
+    Admin: 'admin',
+    Spso: 'spso',
+    User: 'user'
+} as const;
+export type UserRoleEnum = typeof UserRoleEnum[keyof typeof UserRoleEnum];
+
 
 /**
  * Check if a given object implements the User interface.
@@ -47,6 +65,7 @@ export function instanceOfUser(value: object): boolean {
     isInstance = isInstance && "id" in value;
     isInstance = isInstance && "email" in value;
     isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "role" in value;
 
     return isInstance;
 }
@@ -64,6 +83,7 @@ export function UserFromJSONTyped(json: any, ignoreDiscriminator: boolean): User
         'id': json['id'],
         'email': json['email'],
         'name': json['name'],
+        'role': json['role'],
     };
 }
 
@@ -79,6 +99,7 @@ export function UserToJSON(value?: User | null): any {
         'id': value.id,
         'email': value.email,
         'name': value.name,
+        'role': value.role,
     };
 }
 

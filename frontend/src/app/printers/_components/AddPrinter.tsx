@@ -10,16 +10,21 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { toast } from "@/components/ui/use-toast";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FC, useState } from "react";
 import { PrinterForm } from "./PrinterForm";
 
 export const AddPrinter: FC = () => {
   const [open, setOpen] = useState(false);
 
+  const queryClient = useQueryClient();
+
   const mutation = useMutation({
     mutationFn: printerApi.createPrinter,
     onSuccess() {
+      queryClient.invalidateQueries({
+        queryKey: ["printers"],
+      });
       toast({
         title: "Printer added",
         description: "Printer has been added successfully.",
@@ -40,7 +45,7 @@ export const AddPrinter: FC = () => {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="outline">Add Printer</Button>
+        <Button>Add Printer</Button>
       </SheetTrigger>
       <SheetContent className="sm:max-w-[425px]">
         <SheetHeader className="mb-4">

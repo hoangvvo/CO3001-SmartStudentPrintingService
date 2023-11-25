@@ -3,6 +3,7 @@
 import { printerApi } from "@/apis/printer";
 import { useQuery } from "@tanstack/react-query";
 import { AddPrinter } from "./_components/AddPrinter";
+import { PrinterCard } from "./_components/PrinterCard";
 
 export default function PrintersPage() {
   const { data } = useQuery({
@@ -16,13 +17,16 @@ export default function PrintersPage() {
         <div className="space-y-0.5">
           <h2 className="text-2xl font-bold tracking-tight">Printers</h2>
           <p className="text-muted-foreground">
-            Manage printers in your school
+            All printers available in your school
           </p>
         </div>
         <AddPrinter />
       </div>
-
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4"></div>
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+        {data?.printers.map((printer) => (
+          <PrinterCard key={printer.id} printer={printer} />
+        ))}
+      </div>
     </div>
   );
 }
