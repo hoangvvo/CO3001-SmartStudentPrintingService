@@ -13,9 +13,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { CAPABILITIES_LABELS, PAPER_SIZES } from "./constants";
 
 const formSchema = z.object({
   brand_name: z.string().min(1, {
@@ -34,16 +35,14 @@ const formSchema = z.object({
     message: "Invalid printer address",
   }),
   is_enabled: z.boolean(),
+  paper_sizes: z.array(z.string()).min(1, {
+    message: "Must have at least one paper size",
+  }),
+  paper_count: z.coerce.number().nonnegative({
+    message: "Paper count must be non-negative",
+  }),
+  image_url: z.string(),
 });
-
-const CAPABILITIES_LABELS: Record<PrinterCapabilitiesEnum, string> = {
-  [PrinterCapabilitiesEnum.Print]: "Print",
-  [PrinterCapabilitiesEnum.Scan]: "Scan",
-  [PrinterCapabilitiesEnum.Copy]: "Copy",
-  [PrinterCapabilitiesEnum.Fax]: "Fax",
-  [PrinterCapabilitiesEnum.Color]: "Color",
-  [PrinterCapabilitiesEnum.DoubleSided]: "Double Sided",
-};
 
 export const PrinterForm: FC<{
   initialValues?: z.infer<typeof formSchema>;
@@ -60,8 +59,40 @@ export const PrinterForm: FC<{
       location: "",
       printer_address: "",
       is_enabled: true,
+      paper_count: 0,
+      paper_sizes: [],
+      image_url: "",
     },
   });
+
+  useEffect(() => {
+    const subscription = form.watch((value, { name, type }) => {
+      if (name === "brand_name") {
+        if (value.brand_name?.toLowerCase().includes("epson")) {
+          form.setValue(
+            "image_url",
+            "/assets/printers/Epson-SureColor-P700_20231101-052726_full.jpeg",
+          );
+        }
+        if (value.brand_name?.toLowerCase().includes("brother")) {
+          form.setValue(
+            "image_url",
+            "/assets/printers/Brother-HL-L2350DW_20180709-141909_full.jpeg",
+          );
+        }
+        if (value.brand_name?.toLowerCase().includes("hp")) {
+          form.setValue(
+            "image_url",
+            "/assets/printers/HP-OfficeJet-Pro-9015_20191010-140142_full.jpeg",
+          );
+        }
+        if (value.brand_name?.toLowerCase().includes("canon")) {
+          form.setValue("image_url", "/assets/printers/Canon-PixmaG570.png");
+        }
+      }
+    });
+    return () => subscription.unsubscribe();
+  }, [form]);
 
   return (
     <Form {...form}>
@@ -137,39 +168,99 @@ export const PrinterForm: FC<{
                   Specify what this printer can do
                 </FormDescription>
               </div>
-              {Object.values(PrinterCapabilitiesEnum).map((capability) => (
-                <FormField
-                  key={capability}
-                  control={form.control}
-                  name="capabilities"
-                  render={({ field }) => {
-                    return (
-                      <FormItem
-                        key={capability}
-                        className="flex flex-row items-center space-x-3 space-y-0"
-                      >
-                        <FormControl>
-                          <Checkbox
-                            checked={field.value?.includes(capability)}
-                            onCheckedChange={(checked) => {
-                              return checked
-                                ? field.onChange([...field.value, capability])
-                                : field.onChange(
-                                    field.value?.filter(
-                                      (value) => value !== capability,
-                                    ),
-                                  );
-                            }}
-                          />
-                        </FormControl>
-                        <FormLabel className="text-sm font-normal">
-                          {CAPABILITIES_LABELS[capability]}
-                        </FormLabel>
-                      </FormItem>
-                    );
-                  }}
-                />
-              ))}
+              <div className="flex flex-gap gap-4 flex-wrap">
+                {Object.values(PrinterCapabilitiesEnum).map((capability) => (
+                  <FormField
+                    key={capability}
+                    control={form.control}
+                    name="capabilities"
+                    render={({ field }) => {
+                      return (
+                        <FormItem
+                          key={capability}
+                          className="flex flex-row items-center space-x-2 space-y-0"
+                        >
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value?.includes(capability)}
+                              onCheckedChange={(checked) => {
+                                return checked
+                                  ? field.onChange([...field.value, capability])
+                                  : field.onChange(
+                                      field.value?.filter(
+                                        (value) => value !== capability,
+                                      ),
+                                    );
+                              }}
+                            />
+                          </FormControl>
+                          <FormLabel className="text-sm font-normal">
+                            {CAPABILITIES_LABELS[capability]}
+                          </FormLabel>
+                        </FormItem>
+                      );
+                    }}
+                  />
+                ))}
+              </div>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="paper_sizes"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Paper Sizes</FormLabel>
+              <div className="flex flex-gap gap-4 flex-wrap">
+                {PAPER_SIZES.map((paperSize) => (
+                  <FormField
+                    key={paperSize}
+                    control={form.control}
+                    name="paper_sizes"
+                    render={({ field }) => {
+                      return (
+                        <FormItem
+                          key={paperSize}
+                          className="flex flex-row items-center space-x-2 space-y-0"
+                        >
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value?.includes(paperSize)}
+                              onCheckedChange={(checked) => {
+                                return checked
+                                  ? field.onChange([...field.value, paperSize])
+                                  : field.onChange(
+                                      field.value?.filter(
+                                        (value) => value !== paperSize,
+                                      ),
+                                    );
+                              }}
+                            />
+                          </FormControl>
+                          <FormLabel className="text-sm font-normal">
+                            {paperSize}
+                          </FormLabel>
+                        </FormItem>
+                      );
+                    }}
+                  />
+                ))}
+              </div>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="paper_count"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Paper Count</FormLabel>
+              <FormControl>
+                <Input {...field} type="number" placeholder="100" />
+              </FormControl>
               <FormMessage />
             </FormItem>
           )}

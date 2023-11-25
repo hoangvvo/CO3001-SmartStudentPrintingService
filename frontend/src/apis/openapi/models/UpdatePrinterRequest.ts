@@ -55,6 +55,24 @@ export interface UpdatePrinterRequest {
      * @memberof UpdatePrinterRequest
      */
     is_enabled: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof UpdatePrinterRequest
+     */
+    image_url: string | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof UpdatePrinterRequest
+     */
+    paper_sizes: Array<string>;
+    /**
+     * 
+     * @type {number}
+     * @memberof UpdatePrinterRequest
+     */
+    paper_count: number;
 }
 
 
@@ -83,6 +101,9 @@ export function instanceOfUpdatePrinterRequest(value: object): boolean {
     isInstance = isInstance && "location" in value;
     isInstance = isInstance && "printer_address" in value;
     isInstance = isInstance && "is_enabled" in value;
+    isInstance = isInstance && "image_url" in value;
+    isInstance = isInstance && "paper_sizes" in value;
+    isInstance = isInstance && "paper_count" in value;
 
     return isInstance;
 }
@@ -103,6 +124,9 @@ export function UpdatePrinterRequestFromJSONTyped(json: any, ignoreDiscriminator
         'location': json['location'],
         'printer_address': json['printer_address'],
         'is_enabled': json['is_enabled'],
+        'image_url': json['image_url'],
+        'paper_sizes': json['paper_sizes'],
+        'paper_count': json['paper_count'],
     };
 }
 
@@ -121,6 +145,9 @@ export function UpdatePrinterRequestToJSON(value?: UpdatePrinterRequest | null):
         'location': value.location,
         'printer_address': value.printer_address,
         'is_enabled': value.is_enabled,
+        'image_url': value.image_url,
+        'paper_sizes': value.paper_sizes,
+        'paper_count': value.paper_count,
     };
 }
 

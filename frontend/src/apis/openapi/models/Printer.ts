@@ -61,6 +61,24 @@ export interface Printer {
      * @memberof Printer
      */
     is_enabled: boolean;
+    /**
+     * 
+     * @type {string}
+     * @memberof Printer
+     */
+    image_url: string | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof Printer
+     */
+    paper_sizes: Array<string>;
+    /**
+     * 
+     * @type {number}
+     * @memberof Printer
+     */
+    paper_count: number;
 }
 
 
@@ -90,6 +108,9 @@ export function instanceOfPrinter(value: object): boolean {
     isInstance = isInstance && "location" in value;
     isInstance = isInstance && "printer_address" in value;
     isInstance = isInstance && "is_enabled" in value;
+    isInstance = isInstance && "image_url" in value;
+    isInstance = isInstance && "paper_sizes" in value;
+    isInstance = isInstance && "paper_count" in value;
 
     return isInstance;
 }
@@ -111,6 +132,9 @@ export function PrinterFromJSONTyped(json: any, ignoreDiscriminator: boolean): P
         'location': json['location'],
         'printer_address': json['printer_address'],
         'is_enabled': json['is_enabled'],
+        'image_url': json['image_url'],
+        'paper_sizes': json['paper_sizes'],
+        'paper_count': json['paper_count'],
     };
 }
 
@@ -130,6 +154,9 @@ export function PrinterToJSON(value?: Printer | null): any {
         'location': value.location,
         'printer_address': value.printer_address,
         'is_enabled': value.is_enabled,
+        'image_url': value.image_url,
+        'paper_sizes': value.paper_sizes,
+        'paper_count': value.paper_count,
     };
 }
 

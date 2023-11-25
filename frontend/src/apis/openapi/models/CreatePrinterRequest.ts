@@ -49,6 +49,24 @@ export interface CreatePrinterRequest {
      * @memberof CreatePrinterRequest
      */
     printer_address: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CreatePrinterRequest
+     */
+    image_url: string | null;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof CreatePrinterRequest
+     */
+    paper_sizes: Array<string>;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreatePrinterRequest
+     */
+    paper_count: number;
 }
 
 
@@ -76,6 +94,9 @@ export function instanceOfCreatePrinterRequest(value: object): boolean {
     isInstance = isInstance && "capabilities" in value;
     isInstance = isInstance && "location" in value;
     isInstance = isInstance && "printer_address" in value;
+    isInstance = isInstance && "image_url" in value;
+    isInstance = isInstance && "paper_sizes" in value;
+    isInstance = isInstance && "paper_count" in value;
 
     return isInstance;
 }
@@ -95,6 +116,9 @@ export function CreatePrinterRequestFromJSONTyped(json: any, ignoreDiscriminator
         'capabilities': json['capabilities'],
         'location': json['location'],
         'printer_address': json['printer_address'],
+        'image_url': json['image_url'],
+        'paper_sizes': json['paper_sizes'],
+        'paper_count': json['paper_count'],
     };
 }
 
@@ -112,6 +136,9 @@ export function CreatePrinterRequestToJSON(value?: CreatePrinterRequest | null):
         'capabilities': value.capabilities,
         'location': value.location,
         'printer_address': value.printer_address,
+        'image_url': value.image_url,
+        'paper_sizes': value.paper_sizes,
+        'paper_count': value.paper_count,
     };
 }
 
