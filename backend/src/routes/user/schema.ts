@@ -8,6 +8,7 @@ export const userSchema = Type.Object(
     id: Type.Number(),
     email: Type.String(),
     name: Type.String(),
+    page_balance: Type.Number(),
     role: TypeStringEnum(UserRole),
   },
   {
