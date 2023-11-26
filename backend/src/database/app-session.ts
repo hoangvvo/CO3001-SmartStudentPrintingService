@@ -19,7 +19,8 @@ export const appSessionRepository = {
         u.id,
         u.email,
         u.name,
-        u.role
+        u.role,
+        u.page_balance
       FROM app_user u
       JOIN app_session s
         ON u.id = s.user_id

@@ -10,6 +10,7 @@ export interface UserDbObject {
   password_hash: string;
   name: string;
   created_at: Date;
+  page_balance: number;
   role: "admin" | "spso" | "user";
 }
 
@@ -49,6 +50,7 @@ export interface UserFileDbObject {
   file_name: string;
   file_size: number;
   file_type: string;
+  file_path: string;
   created_at: Date;
 }
 

@@ -16,11 +16,12 @@ export const userFileRepository = {
     file_name: string;
     file_size: number;
     file_type: string;
+    file_path: string;
   }) {
     const res = await pool.query<UserFileDbObject>(
       `
-      INSERT INTO user_file (user_id, file_name, file_size, file_type)
-      VALUES ($1, $2, $3, $4)
+      INSERT INTO user_file (user_id, file_name, file_size, file_type, file_path)
+      VALUES ($1, $2, $3, $4, $5)
       RETURNING *
     `,
       [
@@ -28,6 +29,7 @@ export const userFileRepository = {
         userFile.file_name,
         userFile.file_size,
         userFile.file_type,
+        userFile.file_path,
       ],
     );
 
