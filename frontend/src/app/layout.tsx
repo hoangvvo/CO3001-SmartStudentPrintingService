@@ -271,11 +271,7 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <Navbar />
-            <div className="lg:pl-64 relative min-h-screen">
-              <Sidebar />
-              <main>{children}</main>
-            </div>
+            {children}
             <Toaster />
           </ThemeProvider>
         </QueryClientProvider>
