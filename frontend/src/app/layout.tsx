@@ -25,6 +25,7 @@ import {
   ExternalLink,
   Files,
   History,
+  Home,
   LucideIcon,
   Plus,
   Printer,
@@ -178,14 +179,24 @@ const Sidebar: React.FC = () => {
   return (
     <div className="w-64 h-full absolute inset-y-0 left-0 pb-12 pt-4 lg:border-r">
       <div className="px-3 py-2">
-        <Link href="/print" className={cn(buttonVariants(), "w-full gap-2")}>
+        <Link
+          href="/print"
+          className={cn(buttonVariants(), "w-full gap-2 justify-start")}
+        >
           <Plus />
           <span>New Print</span>
         </Link>
       </div>
       <div className="px-3 py-2">
+        <div className="space-y-1 flex flex-col">
+          <SidebarItem href="/" Icon={Home}>
+            Home
+          </SidebarItem>
+        </div>
+      </div>
+      <div className="px-3 py-2">
         <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
-          Printing Services
+          Printing
         </h2>
         <div className="space-y-1 flex flex-col">
           <SidebarItem href="/printers" Icon={Printer}>
