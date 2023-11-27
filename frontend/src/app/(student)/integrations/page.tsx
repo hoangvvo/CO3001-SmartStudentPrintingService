@@ -4,8 +4,8 @@ export default function IntegrationsPage() {
   return (
     <div className="container">
       <PageHeader
-        title="My Files"
-        subtitle="Manage all your files in one place"
+        title="Integrations"
+        subtitle="Print files from your favourite cloud storage services like Google Drive, Dropbox, and OneDrive"
       />
     </div>
   );

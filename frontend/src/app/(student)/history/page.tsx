@@ -52,7 +52,8 @@ export default function HistoryPage() {
                   {format(printerJob.start_time, "dd MMM yyyy HH:mm")}
                 </TableCell>
                 <TableCell>
-                  {printerJob.printer?.brand_name} (
+                  {printerJob.printer?.brand_name}{" "}
+                  {printerJob.printer?.model_name} (
                   {printerJob.printer?.location})
                 </TableCell>
                 <TableCell className="capitalize text-primary">
