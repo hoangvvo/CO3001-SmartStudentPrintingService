@@ -8,12 +8,15 @@ models/CreatePrinterJobRequest.ts
 models/CreatePrinterRequest.ts
 models/CreateUserFile200Response.ts
 models/GetCurrentUser200Response.ts
+models/GetSystemConfiguration200Response.ts
 models/ListPrinterJobs200Response.ts
 models/ListPrinters200Response.ts
 models/ListUserFiles200Response.ts
 models/Printer.ts
 models/PrinterJob.ts
+models/SystemConfiguration.ts
 models/UpdatePrinterRequest.ts
+models/UpdateSystemConfigurationRequest.ts
 models/User.ts
 models/UserFile.ts
 models/UserLoginRequest.ts

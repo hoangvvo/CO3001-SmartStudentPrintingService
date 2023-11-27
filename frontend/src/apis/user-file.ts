@@ -1,17 +1,14 @@
 import { API_BASE_PATH, api } from "./api";
-import { handleResponseError } from "./error";
 import { CreateUserFile200Response, ResponseError } from "./openapi";
 
 export const userFileApi = {
   getUserFile(id: number) {
-    return api
-      .getUserFile({
-        id,
-      })
-      .catch(handleResponseError);
+    return api.getUserFile({
+      id,
+    });
   },
   listUserFiles() {
-    return api.listUserFiles().catch(handleResponseError);
+    return api.listUserFiles();
   },
   async createUserFile({ file }: { file: File }) {
     const formData = new FormData();
@@ -23,18 +20,14 @@ export const userFileApi = {
     });
 
     if (!res.ok) {
-      await handleResponseError(
-        new ResponseError(res, "Failed to create user file"),
-      );
+      throw new ResponseError(res, "Failed to create user file");
     }
 
     return res.json() as Promise<CreateUserFile200Response>;
   },
   deleteUserFile(id: number) {
-    return api
-      .deleteUserFile({
-        id,
-      })
-      .catch(handleResponseError);
+    return api.deleteUserFile({
+      id,
+    });
   },
 };

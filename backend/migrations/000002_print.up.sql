@@ -42,8 +42,9 @@ CREATE TABLE printer_job (
 CREATE TABLE system_configurations (
   id SERIAL PRIMARY KEY,
   default_page_balance INTEGER NOT NULL,
-  date_of_default_page_balance_grant TIMESTAMP NOT NULL,
-  permitted_file_types VARCHAR(255)[] NOT NULL
+  cron_of_default_page_balance_grant VARCHAR NOT NULL,
+  permitted_file_types VARCHAR(255)[] NOT NULL,
+  max_file_size INTEGER NOT NULL
 );
 
 COMMIT;

@@ -1,25 +1,20 @@
 import { api } from "./api";
-import { handleResponseError } from "./error";
 import { CreatePrinterJobRequest } from "./openapi";
 
 export const printerJobApi = {
   getPrinterJob(id: number) {
-    return api
-      .getPrinterJob({
-        id,
-      })
-      .catch(handleResponseError);
+    return api.getPrinterJob({
+      id,
+    });
   },
 
   listPrinterJobs() {
-    return api.listPrinterJobs().catch(handleResponseError);
+    return api.listPrinterJobs();
   },
 
   createPrinterJob(variables: CreatePrinterJobRequest) {
-    return api
-      .createPrinterJob({
-        createPrinterJobRequest: variables,
-      })
-      .catch(handleResponseError);
+    return api.createPrinterJob({
+      createPrinterJobRequest: variables,
+    });
   },
 };

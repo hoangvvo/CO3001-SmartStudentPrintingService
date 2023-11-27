@@ -21,10 +21,12 @@ import type {
   CreatePrinterRequest,
   CreateUserFile200Response,
   GetCurrentUser200Response,
+  GetSystemConfiguration200Response,
   ListPrinterJobs200Response,
   ListPrinters200Response,
   ListUserFiles200Response,
   UpdatePrinterRequest,
+  UpdateSystemConfigurationRequest,
   UserLoginRequest,
   UserSignUpRequest,
 } from '../models/index';
@@ -41,6 +43,8 @@ import {
     CreateUserFile200ResponseToJSON,
     GetCurrentUser200ResponseFromJSON,
     GetCurrentUser200ResponseToJSON,
+    GetSystemConfiguration200ResponseFromJSON,
+    GetSystemConfiguration200ResponseToJSON,
     ListPrinterJobs200ResponseFromJSON,
     ListPrinterJobs200ResponseToJSON,
     ListPrinters200ResponseFromJSON,
@@ -49,6 +53,8 @@ import {
     ListUserFiles200ResponseToJSON,
     UpdatePrinterRequestFromJSON,
     UpdatePrinterRequestToJSON,
+    UpdateSystemConfigurationRequestFromJSON,
+    UpdateSystemConfigurationRequestToJSON,
     UserLoginRequestFromJSON,
     UserLoginRequestToJSON,
     UserSignUpRequestFromJSON,
@@ -71,6 +77,10 @@ export interface DeleteUserFileRequest {
     id: number;
 }
 
+export interface DownloadUserFileRequest {
+    id: number;
+}
+
 export interface GetPrinterRequest {
     id: number;
 }
@@ -86,6 +96,10 @@ export interface GetUserFileRequest {
 export interface UpdatePrinterOperationRequest {
     id: number;
     updatePrinterRequest: UpdatePrinterRequest;
+}
+
+export interface UpdateSystemConfigurationOperationRequest {
+    updateSystemConfigurationRequest: UpdateSystemConfigurationRequest;
 }
 
 export interface UserLoginOperationRequest {
@@ -243,6 +257,33 @@ export class DefaultApi extends runtime.BaseAPI {
 
     /**
      */
+    async downloadUserFileRaw(requestParameters: DownloadUserFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling downloadUserFile.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/files/{id}/download`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async downloadUserFile(requestParameters: DownloadUserFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.downloadUserFileRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     */
     async getCurrentUserRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetCurrentUser200Response>> {
         const queryParameters: any = {};
 
@@ -318,6 +359,30 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async getPrinterJob(requestParameters: GetPrinterJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreatePrinterJob200Response> {
         const response = await this.getPrinterJobRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async getSystemConfigurationRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetSystemConfiguration200Response>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/system-configuration/`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetSystemConfiguration200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async getSystemConfiguration(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetSystemConfiguration200Response> {
+        const response = await this.getSystemConfigurationRaw(initOverrides);
         return await response.value();
     }
 
@@ -453,6 +518,37 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async updatePrinter(requestParameters: UpdatePrinterOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreatePrinter200Response> {
         const response = await this.updatePrinterRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async updateSystemConfigurationRaw(requestParameters: UpdateSystemConfigurationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<GetSystemConfiguration200Response>> {
+        if (requestParameters.updateSystemConfigurationRequest === null || requestParameters.updateSystemConfigurationRequest === undefined) {
+            throw new runtime.RequiredError('updateSystemConfigurationRequest','Required parameter requestParameters.updateSystemConfigurationRequest was null or undefined when calling updateSystemConfiguration.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/system-configuration/`,
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateSystemConfigurationRequestToJSON(requestParameters.updateSystemConfigurationRequest),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => GetSystemConfiguration200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async updateSystemConfiguration(requestParameters: UpdateSystemConfigurationOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<GetSystemConfiguration200Response> {
+        const response = await this.updateSystemConfigurationRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

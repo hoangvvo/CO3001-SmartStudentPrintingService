@@ -156,6 +156,7 @@ const SidebarItem: React.FC<{
 };
 
 const SidebarContent: React.FC = () => {
+  const { user } = useUserStore();
   return (
     <>
       <div className="px-3 py-2">
@@ -213,6 +214,29 @@ const SidebarContent: React.FC = () => {
           </SidebarItem>
           <SidebarItem href="/settings" Icon={Settings}>
             Settings
+          </SidebarItem>
+        </div>
+      </div>
+      {(user?.role === "admin" || user?.role === "spso") && (
+        <div className="px-3 py-2">
+          <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">
+            Admin
+          </h2>
+          <div className="space-y-1 flex flex-col">
+            <SidebarItem href="/admin/system-configuration" Icon={Settings}>
+              System Configuration
+            </SidebarItem>
+          </div>
+        </div>
+      )}
+      <div className="px-3 py-2">
+        <h2 className="mb-2 px-4 text-lg font-semibold tracking-tight">Help</h2>
+        <div className="space-y-1 flex flex-col">
+          <SidebarItem href="/help" Icon={ExternalLink}>
+            Help Center
+          </SidebarItem>
+          <SidebarItem href="/feedback" Icon={ExternalLink}>
+            Feedback
           </SidebarItem>
         </div>
       </div>
