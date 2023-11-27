@@ -109,3 +109,125 @@ export const printerRepository = {
     return res.rows[0];
   },
 };
+
+export interface PrinterJobDbObject {
+  id: number;
+  printer_id: number;
+  user_id: number;
+  file_id: number;
+  start_time: Date;
+  end_time: Date | null;
+  page_size: string;
+  page_count: number;
+  double_side: boolean | null;
+  color: boolean | null;
+}
+
+export const printerJobRepository = {
+  async createPrinterJob(printerJob: {
+    printer_id: number;
+    user_id: number;
+    file_id: number;
+    start_time: Date;
+    end_time: Date | null;
+    page_size: string;
+    page_count: number;
+    double_side: boolean | null;
+    color: boolean | null;
+  }) {
+    const res = await pool.query<PrinterJobDbObject>(
+      `
+      INSERT INTO printer_job (printer_id, user_id, file_id, start_time, end_time, page_size, page_count, double_side, color)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      RETURNING *
+    `,
+      [
+        printerJob.printer_id,
+        printerJob.user_id,
+        printerJob.file_id,
+        printerJob.start_time,
+        printerJob.end_time,
+        printerJob.page_size,
+        printerJob.page_count,
+        printerJob.double_side,
+        printerJob.color,
+      ],
+    );
+
+    return res.rows[0];
+  },
+
+  async getPrinterJobById(id: number) {
+    const res = await pool.query<PrinterJobDbObject>(
+      `
+      SELECT * FROM printer_job WHERE id = $1
+    `,
+      [id],
+    );
+
+    if (res.rowCount === 0) {
+      return null;
+    }
+
+    return res.rows[0];
+  },
+
+  async getPrinterJobs() {
+    const res = await pool.query<PrinterJobDbObject>(
+      `
+      SELECT * FROM printer_job
+    `,
+    );
+
+    return res.rows;
+  },
+
+  async getPrinterJobsByUserId(user_id: number) {
+    const res = await pool.query<PrinterJobDbObject>(
+      `
+      SELECT * FROM printer_job WHERE user_id = $1
+    `,
+      [user_id],
+    );
+
+    return res.rows;
+  },
+
+  async updatePrinterJobById(
+    id: number,
+    printerJob: Partial<{
+      printer_id: number;
+      user_id: number;
+      file_id: number;
+      start_time: Date;
+      end_time: Date | null;
+      page_size: string;
+      page_count: number;
+      double_side: boolean | null;
+      color: boolean | null;
+    }>,
+  ) {
+    const res = await pool.query<PrinterJobDbObject>(
+      `
+      UPDATE printer_job
+      SET printer_id = $1, user_id = $2, file_id = $3, start_time = $4, end_time = $5, page_size = $6, page_count = $7, double_side = $8, color = $9
+      WHERE id = $10
+      RETURNING *
+    `,
+      [
+        printerJob.printer_id,
+        printerJob.user_id,
+        printerJob.file_id,
+        printerJob.start_time,
+        printerJob.end_time,
+        printerJob.page_size,
+        printerJob.page_count,
+        printerJob.double_side,
+        printerJob.color,
+        id,
+      ],
+    );
+
+    return res.rows[0];
+  },
+};

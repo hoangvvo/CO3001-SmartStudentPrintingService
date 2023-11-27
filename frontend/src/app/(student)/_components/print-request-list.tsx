@@ -1,4 +1,4 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { FileText } from "lucide-react";
 import { FC } from "react";
 
@@ -39,7 +39,6 @@ export const PrintRequestList: FC = () => {
       {data.map((item) => (
         <div className="flex items-center" key={item.user.email}>
           <Avatar className="h-9 w-9">
-            <AvatarImage src="/avatars/01.png" alt="Avatar" />
             <AvatarFallback>{item.user.name[0]}</AvatarFallback>
           </Avatar>
           <div className="ml-4 space-y-1">

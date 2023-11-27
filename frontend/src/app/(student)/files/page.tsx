@@ -1,16 +1,14 @@
 "use client";
 
+import { PageHeader } from "@/components/views/page-header";
+
 export default function FilesPage() {
   return (
     <div className="container">
-      <div className="flex py-4 justify-between items-center">
-        <div className="space-y-0.5">
-          <h2 className="text-2xl font-bold tracking-tight">My Files</h2>
-          <p className="text-muted-foreground">
-            Manage all your files in one place
-          </p>
-        </div>
-      </div>
+      <PageHeader
+        title="My Files"
+        subtitle="Manage all your files in one place"
+      />
     </div>
   );
 }

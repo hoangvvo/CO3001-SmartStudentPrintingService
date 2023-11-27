@@ -1,6 +1,5 @@
 BEGIN;
 
-
 CREATE TABLE printer (
   id SERIAL PRIMARY KEY,
   brand_name VARCHAR(255) NULL,
@@ -21,8 +20,13 @@ CREATE TABLE user_file (
   created_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
+CREATE TYPE job_status AS ENUM ('pending', 'printing', 'completed', 'failed');
+
+CREATE TYPE print_orientation AS ENUM ('portrait', 'landscape');
+
 CREATE TABLE printer_job (
   id SERIAL PRIMARY KEY,
+  status job_status NOT NULL DEFAULT 'pending',
   printer_id INTEGER NOT NULL REFERENCES printer(id),
   user_id INTEGER NOT NULL REFERENCES app_user(id),
   file_id INTEGER NOT NULL REFERENCES user_file(id),
@@ -31,7 +35,8 @@ CREATE TABLE printer_job (
   page_size VARCHAR(255) NOT NULL, -- A4, A3, etc.
   page_count INTEGER NOT NULL,
   double_side BOOLEAN NULL,
-  color BOOLEAN NULL
+  color BOOLEAN NULL,
+  orientation print_orientation NULL
 );
 
 CREATE TABLE system_configurations (

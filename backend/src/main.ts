@@ -5,6 +5,7 @@ import { PORT } from "./constants/environments.js";
 import { authentication } from "./plugins/auth.js";
 import { schemaSetup } from "./plugins/schema.js";
 import { fileRouter } from "./routes/file/route.js";
+import { printerJobRouter } from "./routes/printer-job/route.js";
 import { printerRouter } from "./routes/printer/route.js";
 import { userRouter } from "./routes/user/route.js";
 
@@ -34,6 +35,10 @@ await app.register(printerRouter, {
 
 await app.register(fileRouter, {
   prefix: "/files",
+});
+
+await app.register(printerJobRouter, {
+  prefix: "/printer-jobs",
 });
 
 app.setErrorHandler(function (error, request, reply) {
