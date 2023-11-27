@@ -1,38 +1,29 @@
 import { api } from "./api";
-import { handleResponseError } from "./error";
 import { CreatePrinterRequest, UpdatePrinterRequest } from "./openapi";
 
 export const printerApi = {
   getPrinter(id: number) {
-    return api
-      .getPrinter({
-        id,
-      })
-      .catch(handleResponseError);
+    return api.getPrinter({
+      id,
+    });
   },
   listPrinters() {
-    return api.listPrinters().catch(handleResponseError);
+    return api.listPrinters();
   },
   createPrinter(variables: CreatePrinterRequest) {
-    return api
-      .createPrinter({
-        createPrinterRequest: variables,
-      })
-      .catch(handleResponseError);
+    return api.createPrinter({
+      createPrinterRequest: variables,
+    });
   },
   updatePrinter({ id, ...variables }: { id: number } & UpdatePrinterRequest) {
-    return api
-      .updatePrinter({
-        id,
-        updatePrinterRequest: variables,
-      })
-      .catch(handleResponseError);
+    return api.updatePrinter({
+      id,
+      updatePrinterRequest: variables,
+    });
   },
   deletePrinter(id: number) {
-    return api
-      .deletePrinter({
-        id,
-      })
-      .catch(handleResponseError);
+    return api.deletePrinter({
+      id,
+    });
   },
 };

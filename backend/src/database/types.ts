@@ -84,6 +84,7 @@ export interface PrinterJobDbObject {
 export interface SystemConfigurationsDbObject {
   id: number;
   default_page_balance: number;
-  date_of_default_page_balance_grant: Date;
+  cron_of_default_page_balance_grant: string;
   permitted_file_types: string[];
+  max_file_size: number;
 }

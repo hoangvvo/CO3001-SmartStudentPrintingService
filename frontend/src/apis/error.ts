@@ -16,8 +16,3 @@ export const parseResponseError = async (error: Error) => {
     return new Error(error.message);
   }
 };
-
-export const handleResponseError = async (error: Error) => {
-  const parsedError = await parseResponseError(error);
-  throw parsedError;
-};

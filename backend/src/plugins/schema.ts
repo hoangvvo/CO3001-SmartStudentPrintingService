@@ -4,6 +4,7 @@ import fp from "fastify-plugin";
 import { userFileSchema } from "../routes/file/schema.js";
 import { printerJobSchema } from "../routes/printer-job/schema.js";
 import { printerSchema } from "../routes/printer/schema.js";
+import { systemConfigurationSchema } from "../routes/system-configuration/schema.js";
 import { userSchema } from "../routes/user/schema.js";
 
 export const schemaSetup = fp(async (fastify) => {
@@ -25,4 +26,5 @@ export const schemaSetup = fp(async (fastify) => {
   fastify.addSchema(printerSchema);
   fastify.addSchema(userFileSchema);
   fastify.addSchema(printerJobSchema);
+  fastify.addSchema(systemConfigurationSchema);
 });

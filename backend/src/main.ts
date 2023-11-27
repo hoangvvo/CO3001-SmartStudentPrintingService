@@ -7,6 +7,7 @@ import { schemaSetup } from "./plugins/schema.js";
 import { fileRouter } from "./routes/file/route.js";
 import { printerJobRouter } from "./routes/printer-job/route.js";
 import { printerRouter } from "./routes/printer/route.js";
+import { systemConfigurationRouter } from "./routes/system-configuration/route.js";
 import { userRouter } from "./routes/user/route.js";
 
 const app = fastify({
@@ -39,6 +40,10 @@ await app.register(fileRouter, {
 
 await app.register(printerJobRouter, {
   prefix: "/printer-jobs",
+});
+
+await app.register(systemConfigurationRouter, {
+  prefix: "/system-configuration",
 });
 
 app.setErrorHandler(function (error, request, reply) {
