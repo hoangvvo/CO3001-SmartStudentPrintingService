@@ -1,11 +1,15 @@
 import type { FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox";
 import { createWriteStream } from "fs";
-import { stat } from "fs/promises";
+import { mkdir, stat } from "fs/promises";
 import { nanoid } from "nanoid";
 import { join } from "path";
 import { pipeline } from "stream";
 import util from "util";
-import { ForbiddenError, UnauthorizedError } from "../../constants/errors.js";
+import {
+  ForbiddenError,
+  NotFoundError,
+  UnauthorizedError,
+} from "../../constants/errors.js";
 import { STORAGE_PATH } from "../../constants/storage.js";
 import { userFileRepository } from "../../database/user-file.js";
 import {
@@ -18,6 +22,8 @@ import {
 const pump = util.promisify(pipeline);
 
 export const fileRouter: FastifyPluginAsyncTypebox = async (fastify) => {
+  fastify.addHook("onRequest", fastify.auth);
+
   fastify.post("/", { schema: userFileCreateSchema }, async (request) => {
     if (!request.user) {
       throw new UnauthorizedError();
@@ -28,12 +34,11 @@ export const fileRouter: FastifyPluginAsyncTypebox = async (fastify) => {
       throw new Error("No file received");
     }
 
-    const filePath = join(
-      request.user.id.toString(),
-      nanoid(13),
-      data.filename,
-    );
+    const fileDir = join(request.user.id.toString(), nanoid(11));
+    // create file dir if not exists
+    await mkdir(join(STORAGE_PATH, fileDir), { recursive: true });
 
+    const filePath = join(fileDir, data.filename);
     await pump(data.file, createWriteStream(join(STORAGE_PATH, filePath)));
 
     const fileStats = await stat(join(STORAGE_PATH, filePath));
@@ -60,7 +65,7 @@ export const fileRouter: FastifyPluginAsyncTypebox = async (fastify) => {
     const file = await userFileRepository.getUserFileById(request.params.id);
 
     if (!file) {
-      throw new Error("File not found");
+      throw new NotFoundError();
     }
 
     if (request.user.role === "user" && request.user.id !== file.user_id) {

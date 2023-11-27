@@ -16,9 +16,14 @@
 import * as runtime from '../runtime';
 import type {
   CreatePrinter200Response,
+  CreatePrinterJob200Response,
+  CreatePrinterJobRequest,
   CreatePrinterRequest,
+  CreateUserFile200Response,
   GetCurrentUser200Response,
+  ListPrinterJobs200Response,
   ListPrinters200Response,
+  ListUserFiles200Response,
   UpdatePrinterRequest,
   UserLoginRequest,
   UserSignUpRequest,
@@ -26,12 +31,22 @@ import type {
 import {
     CreatePrinter200ResponseFromJSON,
     CreatePrinter200ResponseToJSON,
+    CreatePrinterJob200ResponseFromJSON,
+    CreatePrinterJob200ResponseToJSON,
+    CreatePrinterJobRequestFromJSON,
+    CreatePrinterJobRequestToJSON,
     CreatePrinterRequestFromJSON,
     CreatePrinterRequestToJSON,
+    CreateUserFile200ResponseFromJSON,
+    CreateUserFile200ResponseToJSON,
     GetCurrentUser200ResponseFromJSON,
     GetCurrentUser200ResponseToJSON,
+    ListPrinterJobs200ResponseFromJSON,
+    ListPrinterJobs200ResponseToJSON,
     ListPrinters200ResponseFromJSON,
     ListPrinters200ResponseToJSON,
+    ListUserFiles200ResponseFromJSON,
+    ListUserFiles200ResponseToJSON,
     UpdatePrinterRequestFromJSON,
     UpdatePrinterRequestToJSON,
     UserLoginRequestFromJSON,
@@ -44,11 +59,27 @@ export interface CreatePrinterOperationRequest {
     createPrinterRequest: CreatePrinterRequest;
 }
 
+export interface CreatePrinterJobOperationRequest {
+    createPrinterJobRequest: CreatePrinterJobRequest;
+}
+
 export interface DeletePrinterRequest {
     id: number;
 }
 
+export interface DeleteUserFileRequest {
+    id: number;
+}
+
 export interface GetPrinterRequest {
+    id: number;
+}
+
+export interface GetPrinterJobRequest {
+    id: number;
+}
+
+export interface GetUserFileRequest {
     id: number;
 }
 
@@ -103,6 +134,61 @@ export class DefaultApi extends runtime.BaseAPI {
 
     /**
      */
+    async createPrinterJobRaw(requestParameters: CreatePrinterJobOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreatePrinterJob200Response>> {
+        if (requestParameters.createPrinterJobRequest === null || requestParameters.createPrinterJobRequest === undefined) {
+            throw new runtime.RequiredError('createPrinterJobRequest','Required parameter requestParameters.createPrinterJobRequest was null or undefined when calling createPrinterJob.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        const response = await this.request({
+            path: `/printer-jobs/`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+            body: CreatePrinterJobRequestToJSON(requestParameters.createPrinterJobRequest),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CreatePrinterJob200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async createPrinterJob(requestParameters: CreatePrinterJobOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreatePrinterJob200Response> {
+        const response = await this.createPrinterJobRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async createUserFileRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateUserFile200Response>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/files/`,
+            method: 'POST',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CreateUserFile200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async createUserFile(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateUserFile200Response> {
+        const response = await this.createUserFileRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
     async deletePrinterRaw(requestParameters: DeletePrinterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
         if (requestParameters.id === null || requestParameters.id === undefined) {
             throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deletePrinter.');
@@ -126,6 +212,33 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async deletePrinter(requestParameters: DeletePrinterRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
         await this.deletePrinterRaw(requestParameters, initOverrides);
+    }
+
+    /**
+     */
+    async deleteUserFileRaw(requestParameters: DeleteUserFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling deleteUserFile.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/files/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     */
+    async deleteUserFile(requestParameters: DeleteUserFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteUserFileRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -182,6 +295,86 @@ export class DefaultApi extends runtime.BaseAPI {
 
     /**
      */
+    async getPrinterJobRaw(requestParameters: GetPrinterJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreatePrinterJob200Response>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getPrinterJob.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/printer-jobs/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CreatePrinterJob200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async getPrinterJob(requestParameters: GetPrinterJobRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreatePrinterJob200Response> {
+        const response = await this.getPrinterJobRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async getUserFileRaw(requestParameters: GetUserFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CreateUserFile200Response>> {
+        if (requestParameters.id === null || requestParameters.id === undefined) {
+            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling getUserFile.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/files/{id}`.replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => CreateUserFile200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async getUserFile(requestParameters: GetUserFileRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<CreateUserFile200Response> {
+        const response = await this.getUserFileRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async listPrinterJobsRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListPrinterJobs200Response>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/printer-jobs/`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListPrinterJobs200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async listPrinterJobs(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListPrinterJobs200Response> {
+        const response = await this.listPrinterJobsRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
     async listPrintersRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListPrinters200Response>> {
         const queryParameters: any = {};
 
@@ -201,6 +394,30 @@ export class DefaultApi extends runtime.BaseAPI {
      */
     async listPrinters(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListPrinters200Response> {
         const response = await this.listPrintersRaw(initOverrides);
+        return await response.value();
+    }
+
+    /**
+     */
+    async listUserFilesRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ListUserFiles200Response>> {
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        const response = await this.request({
+            path: `/files/`,
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => ListUserFiles200ResponseFromJSON(jsonValue));
+    }
+
+    /**
+     */
+    async listUserFiles(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ListUserFiles200Response> {
+        const response = await this.listUserFilesRaw(initOverrides);
         return await response.value();
     }
 

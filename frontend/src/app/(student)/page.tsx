@@ -8,11 +8,13 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { StatCard } from "@/components/views/stat-card";
+import { useUserStore } from "@/stores/user.store";
 import { FileText, Hash, Wallet } from "lucide-react";
 import { PrintHistoryOverview } from "./_components/print-history-overview";
 import { PrintRequestList } from "./_components/print-request-list";
 
 export default function Page() {
+  const { user } = useUserStore();
   return (
     <div className="container space-y-4">
       <div className="flex py-4 justify-between items-center">
@@ -27,9 +29,9 @@ export default function Page() {
         <StatCard
           title="Balance"
           Icon={Wallet}
-          footer="Number of pages you can print left"
+          footer="Number of pages you can print"
         >
-          100
+          {user?.page_balance}
         </StatCard>
         <StatCard
           title="Total Print Request"

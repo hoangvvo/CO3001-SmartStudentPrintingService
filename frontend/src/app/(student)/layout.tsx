@@ -12,11 +12,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { useUserStore } from "@/stores/user.store";
 import "@/styles/globals.css";
-import { QueryClient } from "@tanstack/react-query";
 import {
   Blocks,
   CreditCard,
@@ -25,6 +25,7 @@ import {
   History,
   Home,
   LucideIcon,
+  Menu,
   Plus,
   Printer,
   Settings,
@@ -119,7 +120,7 @@ const NavbarSearch: React.FC = () => {
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className="hidden lg:flex">
       <Input
         required
         name="search"
@@ -128,25 +129,6 @@ const NavbarSearch: React.FC = () => {
         className="w-64"
       />
     </form>
-  );
-};
-
-const Navbar: React.FC = () => {
-  return (
-    <nav className="border-b border-border w-full">
-      <div className="flex h-16 gap-10 items-center px-4 lg:px-8">
-        <Link href="/" className="flex items-center gap-1">
-          <Image src={imageLogoBk} width={32} height={32} alt="Logo" />
-          <div className="font-semibold flex flex-col items-start text-sm leading-none">
-            <span style={{ color: "#042b92" }}>Smart Student</span>
-            <span style={{ color: "#1488db" }}>Printing Service</span>
-          </div>
-        </Link>
-        <div className="flex items-center justify-start gap-4 flex-1"></div>
-        <NavbarSearch />
-        <NavbarUser />
-      </div>
-    </nav>
   );
 };
 
@@ -173,9 +155,9 @@ const SidebarItem: React.FC<{
   );
 };
 
-const Sidebar: React.FC = () => {
+const SidebarContent: React.FC = () => {
   return (
-    <div className="w-64 h-full absolute inset-y-0 left-0 pb-12 pt-4 lg:border-r">
+    <>
       <div className="px-3 py-2">
         <Link
           href="/print"
@@ -234,11 +216,65 @@ const Sidebar: React.FC = () => {
           </SidebarItem>
         </div>
       </div>
+    </>
+  );
+};
+
+const Sidebar: React.FC = () => {
+  return (
+    <div className="w-64 h-[calc(100vh-64px)] fixed top-16 inset-y-0 left-0 pb-12 pt-4 border-r hidden lg:block">
+      <SidebarContent />
     </div>
   );
 };
 
-const queryClient = new QueryClient();
+const MobileSidebar: React.FC = () => {
+  const [open, setOpen] = useState(false);
+
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
+
+  return (
+    <Sheet open={open} onOpenChange={setOpen}>
+      <SheetTrigger asChild>
+        <Button
+          aria-label="Menu"
+          variant="ghost"
+          size="icon"
+          className="lg:hidden"
+        >
+          <Menu />
+        </Button>
+      </SheetTrigger>
+      <SheetContent className="lg:hidden" side="left">
+        <SidebarContent />
+      </SheetContent>
+    </Sheet>
+  );
+};
+
+const Navbar: React.FC = () => {
+  return (
+    <nav className="border-b border-border w-full fixed bg-background h-16 z-10">
+      <div className="flex h-full gap-10 items-center px-4 lg:px-8">
+        <MobileSidebar />
+        <Link href="/" className="flex items-center gap-1">
+          <Image src={imageLogoBk} width={32} height={32} alt="Logo" />
+          <div className="font-semibold flex flex-col items-start text-sm leading-none">
+            <span style={{ color: "#042b92" }}>Smart Student</span>
+            <span style={{ color: "#1488db" }}>Printing Service</span>
+          </div>
+        </Link>
+        <div className="flex items-center justify-start gap-4 flex-1"></div>
+        <NavbarSearch />
+        <NavbarUser />
+      </div>
+    </nav>
+  );
+};
 
 export default function RootLayout({
   children,
@@ -255,7 +291,7 @@ export default function RootLayout({
   return (
     <>
       <Navbar />
-      <div className="lg:pl-64 relative min-h-screen">
+      <div className="lg:pl-64 pt-16 relative min-h-screen">
         <Sidebar />
         <main>{children}</main>
       </div>

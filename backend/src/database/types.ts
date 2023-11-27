@@ -54,8 +54,21 @@ export interface UserFileDbObject {
   created_at: Date;
 }
 
+export enum PrinterJobStatus {
+  Pending = "pending",
+  Printing = "printing",
+  Completed = "completed",
+  Failed = "failed",
+}
+
+export enum PrintOrientation {
+  Portrait = "portrait",
+  Landscape = "landscape",
+}
+
 export interface PrinterJobDbObject {
   id: number;
+  status: PrinterJobStatus;
   printer_id: number;
   user_id: number;
   file_id: number;
@@ -65,6 +78,7 @@ export interface PrinterJobDbObject {
   page_count: number;
   double_side: boolean | null;
   color: boolean | null;
+  orientation: PrintOrientation | null;
 }
 
 export interface SystemConfigurationsDbObject {
