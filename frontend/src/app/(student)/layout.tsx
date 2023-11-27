@@ -226,6 +226,9 @@ const SidebarContent: React.FC = () => {
             <SidebarItem href="/admin/system-configuration" Icon={Settings}>
               System Configuration
             </SidebarItem>
+            <SidebarItem href="/admin/printers" Icon={Printer}>
+              Manage Printers
+            </SidebarItem>
           </div>
         </div>
       )}

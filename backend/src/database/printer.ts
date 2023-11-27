@@ -63,6 +63,7 @@ export const printerRepository = {
     const res = await pool.query<PrinterDbObject>(
       `
       SELECT * FROM printer
+      ORDER BY id ASC
     `,
     );
 
@@ -108,16 +109,13 @@ export const printerRepository = {
   },
 
   async deletePrinterById(id: number) {
-    const res = await pool.query<PrinterDbObject>(
+    await pool.query<PrinterDbObject>(
       `
       DELETE FROM printer
       WHERE id = $1
-      RETURNING *
     `,
       [id],
     );
-
-    return res.rows[0];
   },
 };
 

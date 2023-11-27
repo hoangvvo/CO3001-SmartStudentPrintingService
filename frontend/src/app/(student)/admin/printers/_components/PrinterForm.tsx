@@ -1,4 +1,8 @@
 import { PrinterCapabilitiesEnum } from "@/apis/openapi";
+import {
+  CAPABILITIES_LABELS,
+  PAPER_SIZES,
+} from "@/app/(student)/printers/_components/constants";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -16,7 +20,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { CAPABILITIES_LABELS, PAPER_SIZES } from "./constants";
 
 const formSchema = z.object({
   brand_name: z.string().min(1, {

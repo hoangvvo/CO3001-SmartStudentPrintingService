@@ -6,7 +6,6 @@ import { PageHeader } from "@/components/views/page-header";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { AddPrinter } from "./_components/AddPrinter";
 import { PrinterCard } from "./_components/PrinterCard";
 
 export default function PrintersPage() {
@@ -20,7 +19,6 @@ export default function PrintersPage() {
       <PageHeader
         title="Printers"
         subtitle="All printers available in your school"
-        actions={<AddPrinter />}
       />
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {data?.printers.map((printer) => (
