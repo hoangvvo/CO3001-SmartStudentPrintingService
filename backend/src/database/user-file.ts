@@ -51,6 +51,17 @@ export const userFileRepository = {
     return res.rows[0];
   },
 
+  async getUserFileByIds(ids: number[]) {
+    const res = await pool.query<UserFileDbObject>(
+      `
+      SELECT * FROM user_file WHERE id = ANY($1)
+    `,
+      [ids],
+    );
+
+    return res.rows;
+  },
+
   async getUserFilesByUserId(user_id: number) {
     const res = await pool.query<UserFileDbObject>(
       `

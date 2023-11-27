@@ -25,8 +25,25 @@ export const printerJobRouter: FastifyPluginAsyncTypebox = async (fastify) => {
         ? await printerJobRepository.getPrinterJobsByUserId(request.user.id)
         : await printerJobRepository.getPrinterJobs();
 
+    const [userFiles, printers] = await Promise.all([
+      userFileRepository.getUserFileByIds(
+        printerJobs.map((printerJob) => printerJob.file_id),
+      ),
+      printerRepository.getPrintersByIds(
+        printerJobs.map((printerJob) => printerJob.printer_id),
+      ),
+    ]);
+
     return {
-      printer_jobs: printerJobs,
+      printer_jobs: printerJobs.map((printerJob) => ({
+        ...printerJob,
+        user_file: userFiles.find(
+          (userFile) => userFile.id === printerJob.file_id,
+        ),
+        printer: printers.find(
+          (printer) => printer.id === printerJob.printer_id,
+        ),
+      })),
     };
   });
 
@@ -43,8 +60,19 @@ export const printerJobRouter: FastifyPluginAsyncTypebox = async (fastify) => {
       throw new NotFoundError();
     }
 
+    const userFile = await userFileRepository.getUserFileById(
+      printerJob.file_id,
+    );
+    const printer = await printerRepository.getPrinterById(
+      printerJob.printer_id,
+    );
+
     return {
-      printer_job: printerJob,
+      printer_job: {
+        ...printerJob,
+        user_file: userFile || undefined,
+        printer: printer || undefined,
+      },
     };
   });
 
@@ -83,7 +111,11 @@ export const printerJobRouter: FastifyPluginAsyncTypebox = async (fastify) => {
     });
 
     return {
-      printer_job: printerJob,
+      printer_job: {
+        ...printerJob,
+        user_file: userFile,
+        printer,
+      },
     };
   });
 };

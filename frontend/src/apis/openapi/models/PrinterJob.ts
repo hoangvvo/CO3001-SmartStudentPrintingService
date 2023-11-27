@@ -13,6 +13,19 @@
  */
 
 import { exists, mapValues } from '../runtime';
+import type { Printer } from './Printer';
+import {
+    PrinterFromJSON,
+    PrinterFromJSONTyped,
+    PrinterToJSON,
+} from './Printer';
+import type { UserFile } from './UserFile';
+import {
+    UserFileFromJSON,
+    UserFileFromJSONTyped,
+    UserFileToJSON,
+} from './UserFile';
+
 /**
  * 
  * @export
@@ -91,6 +104,18 @@ export interface PrinterJob {
      * @memberof PrinterJob
      */
     orientation: PrinterJobOrientationEnum;
+    /**
+     * 
+     * @type {UserFile}
+     * @memberof PrinterJob
+     */
+    user_file?: UserFile;
+    /**
+     * 
+     * @type {Printer}
+     * @memberof PrinterJob
+     */
+    printer?: Printer;
 }
 
 
@@ -158,6 +183,8 @@ export function PrinterJobFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'double_side': json['double_side'],
         'color': json['color'],
         'orientation': json['orientation'],
+        'user_file': !exists(json, 'user_file') ? undefined : UserFileFromJSON(json['user_file']),
+        'printer': !exists(json, 'printer') ? undefined : PrinterFromJSON(json['printer']),
     };
 }
 
@@ -182,6 +209,8 @@ export function PrinterJobToJSON(value?: PrinterJob | null): any {
         'double_side': value.double_side,
         'color': value.color,
         'orientation': value.orientation,
+        'user_file': UserFileToJSON(value.user_file),
+        'printer': PrinterToJSON(value.printer),
     };
 }
 

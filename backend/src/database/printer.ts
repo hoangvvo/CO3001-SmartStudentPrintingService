@@ -1,5 +1,5 @@
 import { pool } from "./database.js";
-import type { PrinterDbObject } from "./types.js";
+import type { PrinterDbObject, PrinterJobDbObject } from "./types.js";
 
 export const printerRepository = {
   async createPrinter(printer: {
@@ -46,6 +46,17 @@ export const printerRepository = {
     }
 
     return res.rows[0];
+  },
+
+  async getPrintersByIds(ids: number[]) {
+    const res = await pool.query<PrinterDbObject>(
+      `
+      SELECT * FROM printer WHERE id = ANY($1)
+    `,
+      [ids],
+    );
+
+    return res.rows;
   },
 
   async getPrinters() {
@@ -110,19 +121,6 @@ export const printerRepository = {
   },
 };
 
-export interface PrinterJobDbObject {
-  id: number;
-  printer_id: number;
-  user_id: number;
-  file_id: number;
-  start_time: Date;
-  end_time: Date | null;
-  page_size: string;
-  page_count: number;
-  double_side: boolean | null;
-  color: boolean | null;
-}
-
 export const printerJobRepository = {
   async createPrinterJob(printerJob: {
     printer_id: number;
@@ -176,6 +174,7 @@ export const printerJobRepository = {
     const res = await pool.query<PrinterJobDbObject>(
       `
       SELECT * FROM printer_job
+      ORDER BY start_time DESC
     `,
     );
 
@@ -186,6 +185,7 @@ export const printerJobRepository = {
     const res = await pool.query<PrinterJobDbObject>(
       `
       SELECT * FROM printer_job WHERE user_id = $1
+      ORDER BY start_time DESC
     `,
       [user_id],
     );
