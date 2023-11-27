@@ -33,4 +33,30 @@ export const appUserRepository = {
 
     return res.rows[0];
   },
+
+  async getUserById(id: number) {
+    const res = await pool.query<UserDbObject>(
+      `
+      SELECT * FROM app_user WHERE id = $1
+    `,
+      [id],
+    );
+
+    if (res.rowCount === 0) {
+      return null;
+    }
+
+    return res.rows[0];
+  },
+
+  async getUsersByIds(ids: number[]) {
+    const res = await pool.query<UserDbObject>(
+      `
+      SELECT * FROM app_user WHERE id = ANY($1)
+    `,
+      [ids],
+    );
+
+    return res.rows;
+  },
 };

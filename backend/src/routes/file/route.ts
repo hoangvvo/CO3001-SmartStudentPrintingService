@@ -1,5 +1,5 @@
 import type { FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox";
-import { createWriteStream } from "fs";
+import { createReadStream, createWriteStream } from "fs";
 import { mkdir, stat } from "fs/promises";
 import { nanoid } from "nanoid";
 import { join } from "path";
@@ -11,10 +11,12 @@ import {
   UnauthorizedError,
 } from "../../constants/errors.js";
 import { STORAGE_PATH } from "../../constants/storage.js";
+import { appUserRepository } from "../../database/app-user.js";
 import { userFileRepository } from "../../database/user-file.js";
 import {
   userFileCreateSchema,
   userFileDeleteSchema,
+  userFileDownloadSchema,
   userFileGetSchema,
   userFileListSchema,
 } from "./schema.js";
@@ -72,8 +74,13 @@ export const fileRouter: FastifyPluginAsyncTypebox = async (fastify) => {
       throw new ForbiddenError();
     }
 
+    const user = await appUserRepository.getUserById(file.user_id);
+
     return {
-      file,
+      file: {
+        ...file,
+        user: user ?? undefined,
+      },
     };
   });
 
@@ -87,8 +94,15 @@ export const fileRouter: FastifyPluginAsyncTypebox = async (fastify) => {
         ? await userFileRepository.getUserFilesByUserId(request.user.id)
         : await userFileRepository.getUserFiles();
 
+    const users = await appUserRepository.getUsersByIds(
+      files.map((file) => file.user_id),
+    );
+
     return {
-      files,
+      files: files.map((file) => ({
+        ...file,
+        user: users.find((user) => user.id === file.user_id),
+      })),
     };
   });
 
@@ -113,6 +127,37 @@ export const fileRouter: FastifyPluginAsyncTypebox = async (fastify) => {
       await userFileRepository.deleteUserFileById(request.params.id);
 
       return reply.status(204).send();
+    },
+  );
+
+  fastify.get(
+    `/:id/download`,
+    { schema: userFileDownloadSchema },
+    async (request, reply) => {
+      if (!request.user) {
+        throw new UnauthorizedError();
+      }
+
+      const file = await userFileRepository.getUserFileById(request.params.id);
+
+      if (!file) {
+        throw new NotFoundError();
+      }
+
+      if (request.user.role === "user" && request.user.id !== file.user_id) {
+        throw new ForbiddenError();
+      }
+
+      const filePath = join(STORAGE_PATH, file.file_path);
+
+      reply.header(
+        "Content-Disposition",
+        `attachment; filename="${file.file_name}"`,
+      );
+
+      const stream = createReadStream(filePath);
+
+      reply.type(file.file_type).send(stream);
     },
   );
 };

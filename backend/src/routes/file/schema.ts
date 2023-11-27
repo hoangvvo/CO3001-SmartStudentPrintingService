@@ -59,3 +59,10 @@ export const userFileDeleteSchema = {
     204: Type.Null(),
   },
 } satisfies FastifySchema;
+
+export const userFileDownloadSchema = {
+  operationId: "downloadUserFile",
+  params: Type.Object({
+    id: Type.Number(),
+  }),
+} satisfies FastifySchema;
