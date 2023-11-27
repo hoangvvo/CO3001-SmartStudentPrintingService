@@ -20,7 +20,7 @@ export const UserFileCard: FC<{
   horizontal?: boolean;
 }> = ({ userFile, footer, horizontal }) => {
   return (
-    <Card>
+    <Card className="hover:border-primary transition">
       <div className={cn(horizontal && "md:flex flex-row gap-4")}>
         <CardHeader className="flex flex-row gap-4">
           <div className="flex flex-col gap-2 flex-1">

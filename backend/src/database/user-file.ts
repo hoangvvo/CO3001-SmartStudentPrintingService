@@ -66,6 +66,7 @@ export const userFileRepository = {
     const res = await pool.query<UserFileDbObject>(
       `
       SELECT * FROM user_file WHERE user_id = $1
+      ORDER BY created_at DESC
     `,
       [user_id],
     );
@@ -77,6 +78,7 @@ export const userFileRepository = {
     const res = await pool.query<UserFileDbObject>(
       `
       SELECT * FROM user_file
+      ORDER BY created_at DESC
     `,
     );
 
