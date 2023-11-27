@@ -10,7 +10,6 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { toast } from "@/components/ui/use-toast";
-import { useUserStore } from "@/stores/user.store";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { FC, useState } from "react";
 import { PrinterForm } from "./PrinterForm";
@@ -42,11 +41,6 @@ export const AddPrinter: FC = () => {
       });
     },
   });
-
-  const { user } = useUserStore();
-  if (user?.role !== "admin" && user?.role !== "spso") {
-    return null;
-  }
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
