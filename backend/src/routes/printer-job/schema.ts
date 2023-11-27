@@ -6,6 +6,8 @@ import {
   TypeStringDate,
   TypeStringEnum,
 } from "../../utils/typebox.js";
+import { userFileSchema } from "../file/schema.js";
+import { printerSchema } from "../printer/schema.js";
 
 export const printerJobSchema = Type.Object(
   {
@@ -21,6 +23,8 @@ export const printerJobSchema = Type.Object(
     double_side: TypeNullable(Type.Boolean()),
     color: TypeNullable(Type.Boolean()),
     orientation: TypeNullable(TypeStringEnum(PrintOrientation)),
+    user_file: Type.Optional(Type.Ref(userFileSchema)),
+    printer: Type.Optional(Type.Ref(printerSchema)),
   },
   {
     $id: "PrinterJob",
