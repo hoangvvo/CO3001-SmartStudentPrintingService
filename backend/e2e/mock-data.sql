@@ -7,11 +7,11 @@ INSERT INTO printer(brand_name, model_name, capabilities, location, is_enabled, 
 ('HP', 'LaserJet Pro', '{"print", "scan", "color", "copy"}', 'B2 101', TRUE, '192.168.0.5', '/assets/printers/HP-Color-LaserJet-Pro-MFP-M283fdw_20230417-194340_full.jpeg', '{"A4", "A3", "A2"}', 0),
 ('HP', 'Office Jet Pro 9015', '{"print", "scan", "color", "copy", "double_sided"}', 'A4 402', FALSE, '192.168.0.6', '/assets/printers/HP-OfficeJet-Pro-9015_20191010-140142_full.jpeg', '{"A4", "A3"}', 101);
 -- App User
-INSERT INTO app_user(email, password_hash, name, page_balance, created_at)
-  VALUES ('hoang.vo@hcmut.edu.vn', '$argon2id$v=19$m=65536,t=3,p=4$1dghKs+pCDfZL80kX4PKWQ$62cxfui2lzrFB9lJUBFz7RlTezkEtrBUX4ifa9QoO10', 'Hoang Vo', 100, '2023-11-01 00:00:00'),
-('admin@hcmut.edu.vn', '$argon2id$v=19$m=65536,t=3,p=4$zIyD4LPOz/Uw/xrvmGFJfw$GKF2OFE2JwW5oScIxqJRtAnSztnvwtwwdsg35aPc+9E', 'Admin', 100, '2023-11-01 00:00:00'),
-('spso@hcmut.edu.vn', '$argon2id$v=19$m=65536,t=3,p=4$kCo+R5SUaj3sCM7n3HsANQ$NziOdbWz5xDEMSG7j/DxYDu/nMYuADfh4h5YNn/9P/k', 'Mr. Officer', 100, '2023-11-01 00:00:00'),
-('test@hcmut.edu.vn', '$argon2id$v=19$m=65536,t=3,p=4$0QF4LKnBR9WWa9hYZ+PtHg$m2mmmQ8nIIL9Vi5KzCCkpweM6BrWZlJGCoJz1IxHiGY', 'Nguyen Van A', 100, '2023-11-01 00:00:00');
+INSERT INTO app_user(email, password_hash, name, page_balance, created_at, ROLE)
+  VALUES ('hoang.vo@hcmut.edu.vn', '$argon2id$v=19$m=65536,t=3,p=4$1dghKs+pCDfZL80kX4PKWQ$62cxfui2lzrFB9lJUBFz7RlTezkEtrBUX4ifa9QoO10', 'Hoang Vo', 100, '2023-11-01 00:00:00', 'admin'),
+('admin@hcmut.edu.vn', '$argon2id$v=19$m=65536,t=3,p=4$zIyD4LPOz/Uw/xrvmGFJfw$GKF2OFE2JwW5oScIxqJRtAnSztnvwtwwdsg35aPc+9E', 'Admin', 100, '2023-11-01 00:00:00', 'admin'),
+('spso@hcmut.edu.vn', '$argon2id$v=19$m=65536,t=3,p=4$kCo+R5SUaj3sCM7n3HsANQ$NziOdbWz5xDEMSG7j/DxYDu/nMYuADfh4h5YNn/9P/k', 'Mr. Officer', 100, '2023-11-01 00:00:00', 'spso'),
+('test@hcmut.edu.vn', '$argon2id$v=19$m=65536,t=3,p=4$0QF4LKnBR9WWa9hYZ+PtHg$m2mmmQ8nIIL9Vi5KzCCkpweM6BrWZlJGCoJz1IxHiGY', 'Nguyen Van A', 100, '2023-11-01 00:00:00', 'student');
 -- System Configuration
 INSERT INTO system_configurations(id, default_page_balance, cron_of_default_page_balance_grant, permitted_file_types, max_file_size)
   VALUES (1, 100, '0 0 1 1 *', '{"application/pdf", "image/png", "image/jpeg", "image/jpg", "image/gif", "image/bmp", "image/tiff", "image/webp"}', 10485760);

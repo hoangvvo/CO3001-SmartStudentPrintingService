@@ -70,7 +70,7 @@ export const fileRouter: FastifyPluginAsyncTypebox = async (fastify) => {
       throw new NotFoundError();
     }
 
-    if (request.user.role === "user" && request.user.id !== file.user_id) {
+    if (request.user.role === "student" && request.user.id !== file.user_id) {
       throw new ForbiddenError();
     }
 
@@ -90,7 +90,7 @@ export const fileRouter: FastifyPluginAsyncTypebox = async (fastify) => {
     }
 
     const files =
-      request.user.role === "user"
+      request.user.role === "student"
         ? await userFileRepository.getUserFilesByUserId(request.user.id)
         : await userFileRepository.getUserFiles();
 
@@ -120,7 +120,7 @@ export const fileRouter: FastifyPluginAsyncTypebox = async (fastify) => {
         throw new Error("File not found");
       }
 
-      if (request.user.role === "user" && request.user.id !== file.user_id) {
+      if (request.user.role === "student" && request.user.id !== file.user_id) {
         throw new ForbiddenError();
       }
 
@@ -144,7 +144,7 @@ export const fileRouter: FastifyPluginAsyncTypebox = async (fastify) => {
         throw new NotFoundError();
       }
 
-      if (request.user.role === "user" && request.user.id !== file.user_id) {
+      if (request.user.role === "student" && request.user.id !== file.user_id) {
         throw new ForbiddenError();
       }
 
