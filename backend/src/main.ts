@@ -23,7 +23,6 @@ const app = fastify({
 app.register(cors, {
   origin(origin, cb) {
     //  Request from localhost will pass
-    console.log(origin);
     cb(null, origin || (APP_URL && new URL(APP_URL).origin) || true);
   },
   credentials: true,
