@@ -239,7 +239,10 @@ const SidebarContent: React.FC = () => {
           <SidebarItem href="/help" Icon={ExternalLink}>
             Help Center
           </SidebarItem>
-          <SidebarItem href="/feedback" Icon={ExternalLink}>
+          <SidebarItem
+            href="https://docs.google.com/forms/d/1ZIOficuxQkYIDJO653nu4Lucy_XGbmoLP2Osoh05aOI/"
+            Icon={ExternalLink}
+          >
             Feedback
           </SidebarItem>
         </div>

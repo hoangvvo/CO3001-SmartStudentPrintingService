@@ -11,7 +11,7 @@ export interface UserDbObject {
   name: string;
   created_at: Date;
   page_balance: number;
-  role: "admin" | "spso" | "user";
+  role: "admin" | "spso" | "student";
 }
 
 export interface AppSessionDbObject {
