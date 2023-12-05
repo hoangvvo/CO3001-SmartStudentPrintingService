@@ -25,8 +25,8 @@ app.register(cors, {
     //  Request from localhost will pass
     console.log(origin);
     cb(null, origin || (APP_URL && new URL(APP_URL).origin) || true);
-    return;
   },
+  credentials: true,
 });
 
 app.register(fastifyCookie);
