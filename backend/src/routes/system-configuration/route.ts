@@ -9,6 +9,8 @@ import {
 export const systemConfigurationRouter: FastifyPluginAsyncTypebox = async (
   fastify,
 ) => {
+  fastify.addHook("onRequest", fastify.auth);
+
   fastify.get("/", { schema: systemConfigurationGetSchema }, async () => {
     const systemConfiguration =
       await systemConfigurationRepository.getSystemConfiguration();
