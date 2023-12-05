@@ -132,6 +132,15 @@ export default function LoginPage() {
               </Form>
             </div>
             <div className="flex-1 p-4 flex flex-col gap-2">
+              <p className="text-red-700 font-bold">Demo note</p>
+              <p className="text-sm">
+                Student Demo account: test@hcmut.edu.vn / 12345678
+                <br />
+                Student Printing Service Officer Demo account: spso@hcmut.edu.vn
+                / 12345678
+                <br />
+                Admin Demo account: admin@hcmut.edu.vn / 12345678
+              </p>
               <p className="text-red-700 font-bold">Please note</p>
               <p className="text-sm">
                 The Login page enables single sign-on to multiple websites at
