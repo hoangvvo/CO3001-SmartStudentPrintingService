@@ -31,6 +31,10 @@ export default function PrintersPage() {
                   <Button variant="outline" className="w-full" disabled>
                     No Paper
                   </Button>
+                ) : !printer.is_enabled ? (
+                  <Button variant="outline" className="w-full" disabled>
+                    Disabled
+                  </Button>
                 ) : (
                   <Button variant="outline" className="w-full justify-between">
                     Print
