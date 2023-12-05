@@ -1,6 +1,7 @@
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { FC } from "react";
+import { SelectFileExisted } from "./select-file-existed";
 import { SelectFileSelected } from "./select-file-selected";
 import { SelectFileUpload } from "./select-file-upload";
 
@@ -34,7 +35,9 @@ export const SelectFile: FC<{
           <TabsContent value="upload">
             <SelectFileUpload onSelected={onSelected} />
           </TabsContent>
-          <TabsContent value="select-existing">Select Existing</TabsContent>
+          <TabsContent value="select-existing">
+            <SelectFileExisted onSelected={onSelected} />
+          </TabsContent>
           <TabsContent value="select-integrations">
             Select Integrations
           </TabsContent>
