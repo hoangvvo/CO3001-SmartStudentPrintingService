@@ -1,6 +1,7 @@
 "use client";
 
 import imageLogoBk from "@/assets/logoBK.png";
+import { ErrorPage } from "@/components/pages/error-page";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button, buttonVariants } from "@/components/ui/button";
 import {
@@ -303,11 +304,7 @@ const Navbar: React.FC = () => {
   );
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AppLayout({ children }: { children: React.ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
 
   useEffect(() => {
@@ -315,12 +312,28 @@ export default function RootLayout({
     setHydrated(true);
   }, []);
 
+  const { user } = useUserStore();
+
   return (
     <>
       <Navbar />
       <div className="lg:pl-64 pt-16 relative min-h-screen">
         <Sidebar />
-        <main>{children}</main>
+        <main
+          className={cn(
+            "opacity-0 transition-opacity",
+            hydrated && "opacity-100",
+          )}
+        >
+          {!!user ? (
+            children
+          ) : (
+            <ErrorPage
+              title="Unauthenticated"
+              message="You must be logged in to use the app."
+            />
+          )}
+        </main>
       </div>
     </>
   );
