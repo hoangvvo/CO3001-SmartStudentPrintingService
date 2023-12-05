@@ -4,7 +4,7 @@ INSERT INTO printer(brand_name, model_name, capabilities, location, is_enabled, 
   VALUES ('Brother', 'HL-L2350DW', '{"print", "double_sided"}', 'A6 101', TRUE, '192.168.0.2', '/assets/printers/Brother-HL-L2350DW_20180709-141909_full.jpeg', '{"A4", "A3", "US"}', 100),
 ('Epson', 'SureColor P700', '{"print", "scan", "color", "double_sided"}', 'B4 402', TRUE, '192.168.0.3', '/assets/printers/Epson-SureColor-P700_20231101-052726_full.jpeg', '{"A4", "A3"}', 102),
 ('Canon', 'Pixma G570', '{"print", "scan", "fax", "copy"}', 'B1 204', TRUE, '192.168.0.4', '/assets/printers/Canon-PixmaG570.png', '{"A4", "A3", "A2"}', 84),
-('HP', 'LaserJet Pro', '{"print", "scan", "color", "copy"}', 'B2 101', TRUE, '192.168.0.5', '/assets/printers/HP-Color-LaserJet-Pro-MFP-M283fdw_20230417-194340_full.jpeg', '{"A4", "A3", "A2"}', 92),
+('HP', 'LaserJet Pro', '{"print", "scan", "color", "copy"}', 'B2 101', TRUE, '192.168.0.5', '/assets/printers/HP-Color-LaserJet-Pro-MFP-M283fdw_20230417-194340_full.jpeg', '{"A4", "A3", "A2"}', 0),
 ('HP', 'Office Jet Pro 9015', '{"print", "scan", "color", "copy", "double_sided"}', 'A4 402', FALSE, '192.168.0.6', '/assets/printers/HP-OfficeJet-Pro-9015_20191010-140142_full.jpeg', '{"A4", "A3"}', 101);
 -- App User
 INSERT INTO app_user(email, password_hash, name, page_balance, created_at)

@@ -50,7 +50,7 @@ export const userRouter: FastifyPluginAsyncTypebox = async (fastify) => {
         expires: expiresAt,
         domain: APP_URL ? new URL(APP_URL).hostname : undefined,
         secure: APP_URL?.startsWith("https"),
-        sameSite: "none",
+        sameSite: APP_URL?.startsWith("https") ? "none" : "lax",
       });
 
       return {
@@ -90,7 +90,7 @@ export const userRouter: FastifyPluginAsyncTypebox = async (fastify) => {
         expires: expiresAt,
         domain: APP_URL ? new URL(APP_URL).hostname : undefined,
         secure: APP_URL?.startsWith("https"),
-        sameSite: "none",
+        sameSite: APP_URL?.startsWith("https") ? "none" : "lax",
       });
 
       return {
@@ -114,7 +114,7 @@ export const userRouter: FastifyPluginAsyncTypebox = async (fastify) => {
           expires: new Date(0),
           domain: APP_URL ? new URL(APP_URL).hostname : undefined,
           secure: APP_URL?.startsWith("https"),
-          sameSite: "none",
+          sameSite: APP_URL?.startsWith("https") ? "none" : "lax",
         });
       }
 

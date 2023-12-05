@@ -155,9 +155,12 @@ export const fileRouter: FastifyPluginAsyncTypebox = async (fastify) => {
         `attachment; filename="${file.file_name}"`,
       );
 
+      const stats = await stat(filePath);
+
       const stream = createReadStream(filePath);
 
-      reply.type(file.file_type).send(stream);
+      reply.header("Content-Length", stats.size);
+      return reply.type(file.file_type).send(stream);
     },
   );
 };
