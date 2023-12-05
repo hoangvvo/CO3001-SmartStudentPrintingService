@@ -2,7 +2,7 @@ import fastifyCookie from "@fastify/cookie";
 import cors from "@fastify/cors";
 import fastifyMultipart from "@fastify/multipart";
 import { fastify } from "fastify";
-import { PORT } from "./constants/environments.js";
+import { APP_URL, PORT } from "./constants/environments.js";
 import { authentication } from "./plugins/auth.js";
 import { schemaSetup } from "./plugins/schema.js";
 import { fileRouter } from "./routes/file/route.js";
@@ -23,7 +23,8 @@ const app = fastify({
 app.register(cors, {
   origin(origin, cb) {
     //  Request from localhost will pass
-    cb(null, origin || true);
+    console.log(origin);
+    cb(null, origin || (APP_URL && new URL(APP_URL).origin) || true);
     return;
   },
 });
