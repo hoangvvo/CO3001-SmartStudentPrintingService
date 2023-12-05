@@ -17,6 +17,7 @@ export const userFileApi = {
     const res = await fetch(`${API_BASE_PATH}/files`, {
       method: "POST",
       body: formData,
+      credentials: "include",
     });
 
     if (!res.ok) {
