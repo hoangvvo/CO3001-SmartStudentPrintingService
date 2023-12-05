@@ -7,9 +7,9 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node dist/main.js",
+    "start": "node --env-file=.env dist/main.js",
     "build": "tsc",
-    "dev": "node --watch --loader ts-node/esm src/main.ts",
+    "dev": "node --import=tsimp/import --env-file=.env --watch src/main.ts",
     "lint": "eslint ./ --ext json,ts,js --ignore-path .gitignore",
     "lint:fix": "npm run lint -- --fix"
   },
@@ -44,7 +44,7 @@
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.1",
     "prettier": "^3.0.3",
-    "ts-node": "^10.9.1",
+    "tsimp": "^2.0.10",
     "typescript": "^5.2.2"
   },
   "engines": {

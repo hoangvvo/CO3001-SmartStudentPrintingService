@@ -36,3 +36,18 @@ migrate -source file://./migrations -database "$DATABASE_URL"
 ```sh
 migrate create -ext sql -dir ./migrations -seq <migration_name>
 ```
+
+3. Import mock data
+
+```sh
+psql -U postgres -d postgres -f ./e2e/mock-data.sql
+```
+
+
+4. Remove docker compose data
+
+```sh
+docker compose down -v
+docker volume rm $(docker volume ls -q)
+```
+
