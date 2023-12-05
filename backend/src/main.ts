@@ -1,4 +1,5 @@
 import fastifyCookie from "@fastify/cookie";
+import cors from "@fastify/cors";
 import fastifyMultipart from "@fastify/multipart";
 import { fastify } from "fastify";
 import { PORT } from "./constants/environments.js";
@@ -17,6 +18,14 @@ const app = fastify({
     },
   },
   disableRequestLogging: true,
+});
+
+app.register(cors, {
+  origin(origin, cb) {
+    //  Request from localhost will pass
+    cb(null, origin || true);
+    return;
+  },
 });
 
 app.register(fastifyCookie);
