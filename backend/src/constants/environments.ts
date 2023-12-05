@@ -7,11 +7,14 @@ const envSchemaSchema = Type.Object({
   PORT: Type.Number({
     default: 4000,
   }),
+  APP_URL: Type.Optional(Type.String()),
 });
 
-const { DATABASE_URL, PORT } = envSchema<Static<typeof envSchemaSchema>>({
+const { DATABASE_URL, PORT, APP_URL } = envSchema<
+  Static<typeof envSchemaSchema>
+>({
   schema: envSchemaSchema,
   dotenv: true,
 });
 
-export { DATABASE_URL, PORT };
+export { APP_URL, DATABASE_URL, PORT };
