@@ -1,4 +1,5 @@
 import type { FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox";
+import { APP_URL } from "../../constants/environments.js";
 import { ConflictError } from "../../constants/errors.js";
 import { appUserRepository } from "../../database/app-user.js";
 import { authService } from "../../services/auth.js";
@@ -47,6 +48,8 @@ export const userRouter: FastifyPluginAsyncTypebox = async (fastify) => {
         httpOnly: true,
         path: "/",
         expires: expiresAt,
+        domain: APP_URL ? new URL(APP_URL).hostname : undefined,
+        secure: APP_URL?.startsWith("https"),
       });
 
       return {
@@ -84,6 +87,8 @@ export const userRouter: FastifyPluginAsyncTypebox = async (fastify) => {
         httpOnly: true,
         path: "/",
         expires: expiresAt,
+        domain: APP_URL ? new URL(APP_URL).hostname : undefined,
+        secure: APP_URL?.startsWith("https"),
       });
 
       return {
@@ -105,6 +110,8 @@ export const userRouter: FastifyPluginAsyncTypebox = async (fastify) => {
           httpOnly: true,
           path: "/",
           expires: new Date(0),
+          domain: APP_URL ? new URL(APP_URL).hostname : undefined,
+          secure: APP_URL?.startsWith("https"),
         });
       }
 
