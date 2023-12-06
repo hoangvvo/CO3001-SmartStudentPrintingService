@@ -1,4 +1,4 @@
-# AcaUni backend
+# SSPS backend
 
 ## Instruction
 
