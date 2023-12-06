@@ -21,7 +21,7 @@ export const printerJobRouter: FastifyPluginAsyncTypebox = async (fastify) => {
     }
 
     const printerJobs =
-      request.user.role === "user"
+      request.user.role === "student"
         ? await printerJobRepository.getPrinterJobsByUserId(request.user.id)
         : await printerJobRepository.getPrinterJobs();
 

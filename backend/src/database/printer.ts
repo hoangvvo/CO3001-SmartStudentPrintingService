@@ -1,5 +1,9 @@
 import { pool } from "./database.js";
-import type { PrinterDbObject, PrinterJobDbObject } from "./types.js";
+import type {
+  PrintOrientation,
+  PrinterDbObject,
+  PrinterJobDbObject,
+} from "./types.js";
 
 export const printerRepository = {
   async createPrinter(printer: {
@@ -130,11 +134,12 @@ export const printerJobRepository = {
     page_count: number;
     double_side: boolean | null;
     color: boolean | null;
+    orientation: PrintOrientation | null;
   }) {
     const res = await pool.query<PrinterJobDbObject>(
       `
-      INSERT INTO printer_job (printer_id, user_id, file_id, start_time, end_time, page_size, page_count, double_side, color)
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      INSERT INTO printer_job (printer_id, user_id, file_id, start_time, end_time, page_size, page_count, double_side, color, orientation)
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
       RETURNING *
     `,
       [
@@ -147,6 +152,7 @@ export const printerJobRepository = {
         printerJob.page_count,
         printerJob.double_side,
         printerJob.color,
+        printerJob.orientation,
       ],
     );
 
