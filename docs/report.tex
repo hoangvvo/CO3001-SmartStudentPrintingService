@@ -1,0 +1,117 @@
+% 'draft' mode can be used to speed up compilation
+\documentclass[final]{hcmut-report}
+\usepackage{codespace}
+
+% Draft watermark
+% https://github.com/callegar/LaTeX-draftwatermark
+
+% Encodings
+\usepackage{gensymb,textcomp}
+
+% Better tables
+% Wide tables go to https://tex.stackexchange.com/q/332902
+\usepackage{array,longtable,multicol,multirow,siunitx,tabularx}
+
+% Better enum
+\usepackage{enumitem}
+
+% Graphics
+\usepackage{caption,float}
+
+% Add options for figures, like max width, framing, etc.
+\usepackage[export]{adjustbox}
+
+% References
+% Use \Cref{} instead of \ref{}
+\usepackage[nameinlink]{cleveref}
+
+% FOR DEMONSTRATION PURPOSES, REMOVE IN PRODUCTION
+\usepackage{mwe}
+
+% Sub-preambles
+% https://github.com/MartinScharrer/standalone
+
+
+% Configurations
+\coursename{Software Engineering}
+\reporttype{Assignment}
+\title{Smart Student Printing Service}
+\advisor{& Trương Thị Thái Minh &}
+\stuname{%
+  & Hồ Công Gia Bảo  & 2152414 \\
+  & Vũ Lê Bình & 2152440 \\
+  & Võ Việt Hoàng & 2152355 \\
+  & Trần Trường Giang  & 2152534 \\
+  & Nguyễn Phúc Toàn  & 2153902 \\
+  & Phương Xương Thịnh  & 2012479 \\
+  & Nguyễn Nhất Huy  & 2053042 \\
+}
+
+% Allow page breaks inside align* environment
+%\allowdisplaybreaks{}
+
+% Makes a lot of things blue, avoid at all costs
+%\everymath{\color{blue}}
+
+% Set depth of numbering for counters
+\AtBeginDocument{\counterwithin{lstlisting}{section}}
+
+% Rename some sections
+%\AtBeginDocument{\renewcommand*{\contentsname}{Contents}}
+%\AtBeginDocument{\renewcommand*{\refname}{References}}
+%\AtBeginDocument{\renewcommand*{\bibname}{References}}
+
+% Custom commands
+%\newcommand*\mean[1]{\bar{#1}}
+
+\begin{document}
+\coverpage%
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\pagebreak
+
+\section{Member list \& Workload}
+
+\
+
+\begin{table}[H]
+\begin{tabular}{|l|l|l|l|}
+\hline
+\textbf{No.} & \textbf{Full Name} & \textbf{Work Assignment}                                                                                                                                   & \textbf{Contribution} \\ \hline
+1            & Võ Việt Hoàng      & \begin{tabular}[c]{@{}l@{}}- User Requirement and Domain Context\\ - Use case diagrams and tables\\ - Architecture diagrams\\ - MVP Wireframe\end{tabular} & 100\%                 \\ \hline
+2            & Phương Xương Thịnh & \begin{tabular}[c]{@{}l@{}}- User Requirement\\ - Draw and describe use cases\\ - Draw component diagram\\ - General Editing and Finalization\end{tabular} & 100\%                 \\ \hline
+3            & Nguyễn Phúc Toàn   & \begin{tabular}[c]{@{}l@{}}- User Requirement\\ - Draw and describe use cases\\ - Draw class diagram\\ - Draw activity diagram\\ - General Editing and Finalization\end{tabular}     & 100\%                 \\ \hline
+4            & Hồ Công Gia Bảo    & \begin{tabular}[c]{@{}l@{}}- User Requirement\\ - Draw sequence diagram\\ - General Editing and Finalization\end{tabular}                                  & 100\%                 \\ \hline
+5            & Trần Trường Giang  & \begin{tabular}[c]{@{}l@{}}- User Requirement\\ - Draw class diagram\end{tabular}                                                                          & 100\%                 \\ \hline
+6            & Nguyễn Nhất Huy    & \begin{tabular}[c]{@{}l@{}}- User Requirement\\ - Use case diagrams and tables\\ - Draw sequence diagram\\ - General Editing and Finalization\end{tabular} & 100\%                 \\ \hline
+7            & Vũ Lê Bình         & \begin{tabular}[c]{@{}l@{}}- Draw Activity Diagram\\ - General Editing and Finalization\end{tabular}                                                       & 100\%                 \\ \hline
+\end{tabular}
+\end{table}
+
+\clearpage
+
+\include{chapters/1.project-description/1.1.project-description}
+\clearpage
+\include{chapters/2. project-requirement/2.1 project-requirement}
+\clearpage
+\include{chapters/3. use-case-diagram/3 use-case-diagram}
+\clearpage
+\include{chapters/4. system-modeling/4. system-modeling}
+\clearpage
+\include{chapters/5. mvp-wireframe/5 mvp-wireframe}
+\clearpage
+\include{chapters/6. architecture-design/6. architecture-design}
+\clearpage
+
+\include{chapters/7. Implementation – Sprint 1/Task 4: Implementation – Sprint 1}
+\clearpage
+
+\include{chapters/8. Implementation - Sprint 2/Implementation - Sprint 2}
+\clearpage
+
+\nocite{*}
+
+\end{document}

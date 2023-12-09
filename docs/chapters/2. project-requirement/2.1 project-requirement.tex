@@ -1,0 +1,51 @@
+\section{Project Requirements}
+
+\subsection{Functional Requirements}
+
+\subsubsection{For Students}
+\begin{itemize}
+\item \textbf{Document Printing:} The system must allow a student to initiate the printing of a document by uploading a supported document file format (e.g., PDF, DOCX).
+\item \textbf{Printer Selection:} The student should have the ability to select a specific printer from the available options.
+\item \textbf{Printing Properties:} The student must specify various printing properties, including paper size (e.g., A4, A3), the range of pages to be printed (e.g., pages 1-5), single-sided or double-sided printing, and the number of copies.
+\item \textbf{View Printing History:} Students must have access to their printing history, which provides a record of past print jobs. This history should include details such as the timestamp of each print job, the total number of pages printed, and the name of the printer used.
+\item \textbf{User Authentication:} To access the printing service, students must log in using the HCMUT\_SSO authentication service. Users who are not logged in should not be able to use the service.
+\item \textbf{Page Balance Purchase:} Students should be able to purchase additional page balance using the BKPay system, allowing them to print more pages. The updated page balance should be reflected immediately in the application.
+\item \textbf{Page Balance Notification:} If a student's page balance is depleted, the printing functionality must be temporarily disabled. Users should receive a prominent notification offering the option to purchase more page balance.
+\end{itemize}
+
+\subsubsection{For Student Printing Service Officer}
+\begin{itemize}
+\item \textbf{View Printing History:} The SPSO must have the ability to access the printing history of all students or specific students within a specified time period. Each log entry should include details such as the number of pages printed, the printer used, and student information.
+\item \textbf{System Configuration:} The SPSO should have the authority to modify system configurations, including default page counts, accepted file types, and other settings that govern the behavior of the printing service.
+\item \textbf{Printer Management:} The SPSO should be able to manage printers, including adding new printers, enabling or disabling existing printers, and configuring printer-specific settings.
+\item \textbf{User Information Access:} The SPSO must be able to access detailed user information, including balance, name, and student ID.
+\item \textbf{Report Generation:} The service must automatically generate and store monthly and yearly reports summarizing page usage, the number of students using the service, and comparisons with previous time intervals.
+\end{itemize}
+
+\subsubsection{For HCMUT Administrator}
+\begin{itemize}
+\item \textbf{User Account Management:} The administrator must have the capability to create, redefine, deactivate, or delete user accounts, including those of students and SPSOs.
+\item \textbf{Payment History Access:} The administrator should be able to access and review the payment history of each student account at any time.
+\item \textbf{Report Access:} The administrator should have access to monthly and yearly reports detailing page usage and student statistics compared to previous intervals.
+\end{itemize}
+
+\subsection{Non-Functional Requirements}
+
+\subsubsection{For Students}
+\begin{itemize}
+\item \textbf{Data Privacy:} Uploaded files by students should be securely accessible only by the student who uploaded them or the Student Printing Service Officer.
+\item \textbf{User Interface Responsiveness:} The user interface should load within 5 seconds to ensure a smooth and responsive experience when interacting with buttons and inputs.
+\item \textbf{Server Performance:} The application server must remain accessible and responsive even when handling up to 50 concurrent student uploads.
+\item \textbf{Page Count Accuracy:} The system must accurately count or calculate the number of pages printed by each student.
+\end{itemize}
+
+\subsubsection{For Student Printing Service Officer}
+\begin{itemize}
+\item \textbf{Comprehensive Documentation:} A detailed document must accompany the application, explaining its operation and providing step-by-step instructions for actions such as enabling/disabling printers, configuring printer page limits, specifying permitted file types, and viewing logs.
+\item \textbf{Configuration Propagation:} When the SPSO updates printing configurations (e.g., default page limits or paper size), the changes must be applied to all printers across the network within 1 minute.
+\end{itemize}
+
+\subsubsection{For HCMUT Administrator}
+\begin{itemize}
+\item \textbf{Account Management Efficiency:} Any changes made to user accounts by the administrator (e.g., creation, redefinition, deactivation, deletion) should be completed by the system within 10 minutes.
+\end{itemize}

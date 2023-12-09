@@ -1,0 +1,115 @@
+\section{Project Description}
+
+\subsection{Describe project}
+
+The university is intent to build a Student Smart Printing Service (HCMUT\_SSPS) for serving
+students in its campuses to print their documents.\\
+
+The system consists of some printers around the campuses. Each printer has ID,
+brand/manufacturer name, printer model, short description, and the location (campus name,
+building name, and room number).\\
+
+The system allows a student to print a document by uploading a document file onto the system,
+choose a printer, and specifying the printing properties such as paper size, pages (of the file) to be printed, one-/double-sided, number of copies, etc. The permitted file types are limitted and configured by the Student Printing Service Officer (SPSO). \\
+
+The system has to log the printing actions for all students, including student ID, printer ID, file
+name, printing start and end time, number of pages for each page size. \\
+
+The system allows the SPSO to view the printing history (log) of all students or a student for a
+time period (date to date) and for all or some printers. Of course, a student can also view his/her
+printing log for a time period together with a summary of number of printed pages for each
+page size. \\
+
+For each semester, the university give each student a default number of A4-size pages for
+printing. Students are allowed to buy some more using the feature Buy Printing Pages of the
+system and pay the amount through some online payment system like the BKPay system of the
+university. The system only allow a student to print some number of pages when it does not
+exceed his/her account (page) balance. Note that, one A3 page is equivalent to two A4 pages.
+The SPSO has a feature to manage printers such as add/enable/disable a printer.\\
+
+The SPSO also has a feature to manage other configuration of the system such as changing the
+default number of pages, the dates that the system will give the default number of pages to all
+students, the permitted file types accepted by the system.\\
+
+The reports of the using of the printing system are generated automatically at the end of each
+month and each year and are stored in the system, and can be viewed by the SPSO anytime.
+All users have to be authenticated by the HCMUT\_SSO authentication service before using the
+system.\\
+
+The system is provided through a web-based app or a mobile app.
+
+\subsection{Domain Context}
+
+\subsubsection{Overview}
+
+HCMUT\_SSPS is a comprehensive system for university student document printing. It includes printers, user authentication, printing management, page quotas, online payments, configuration tools, and usage reports.
+
+\subsubsection{Actors and Roles}
+
+Students use the system to print, purchase pages, and view history. The SPSO administers printers, settings, and reports.
+
+\subsubsection{Key Concepts and Interactions}
+
+Printers have IDs, brands, models, and locations. Print jobs include file details and printing preferences. Printing history tracks past jobs. Page quotas manage A4 page limits. Online payments expand quotas. System settings configure behavior. Usage reports summarize activity.
+
+\subsubsection{Domain Rules}
+
+Students authenticate via HCMUT\_SSO. File types are controlled by the SPSO. Page quotas reset each semester. Overusing quotas is restricted. A3 pages count as two A4 pages. SPSO manages printers and settings. Reports are auto-generated.
+
+\subsubsection{Domain Events}
+
+Upload initiates printing. Print job submission requests printing. Completion marks success. Purchasing adds pages. Monthly/yearly reports offer insights. SPSO's actions affect printers and settings.
+
+\subsubsection{Relationships}
+
+Students are linked to quotas and history. Print jobs connect students, printers, and preferences. Reports summarize all activity. SPSO manages printers and settings for system effectiveness.
+
+
+\subsection{Stakeholders and their current needs}
+\begin{itemize}
+\item \textbf{Students (Users):} Primary users of the system. They utilize the Student Smart Printing Service (HCMUT\_SSPS) to print documents, manage their page balance, and view printing history.
+
+\item \textbf{Student Printing Service Officer (SPSO):} The SPSO administers the system, managing printers, configuration settings, and viewing printing logs and reports.
+\item \textbf{HCMUT Administration:} Responsible for overseeing the efficient provision of the printing service to students. They make decisions regarding resource allocation and service enhancements based on usage trends.
+
+\item \textbf{HCMUT IT Department:} Ensures the secure setup and integration of the smart printing service within the university network. They are responsible for integrating with existing systems such as HCMUT\_SSO.
+
+\item \textbf{Printers:} The physical devices located around campus, each with a unique ID, brand, model, description, and specific location details, including campus name, building name, and room number. They play a central role in the printing process.
+
+\item \textbf{BKPay System:} The online payment system integrated into the Student Smart Printing Service for purchasing additional printing pages. It facilitates financial transactions related to printing.
+
+\item \textbf{System Database:} The database within the system is responsible for storing data, including printing history, reports, user information, and configuration settings. It ensures data integrity and accessibility.
+
+\item \textbf{HCMUT\_SSO Authentication Service}: The authentication service that verifies user identities before granting access to the Student Smart Printing Service. It ensures secure user authentication.
+
+\item \textbf{Web-Based and Mobile Apps:} The delivery channels through which users access the system. They provide the user interface for interacting with the printing service.
+
+\item \textbf{Reports:} Automated reports generated by the system at the end of each month and year. They summarize printing usage data and provide insights for stakeholders.
+
+\end{itemize}
+
+\subsection{Benefits of HCMUT-SSPS for each stakeholder}
+
+\subsubsection{Students (Users):}
+\begin{itemize}
+\item \textbf{Convenience:} HCMUT-SSPS offers students a convenient and user-friendly way to print documents from both web and mobile apps. This convenience can improve their overall experience and productivity on campus.
+Choice and Customization: Students benefit from the ability to choose printers based on their preferences and specific requirements. This customization ensures that their printing needs are met efficiently. (Source: Journal of Computing Sciences in Colleges - Student Smart Printing: An Approach to Mobile and Secure Printing)
+\item \textbf{Transparency:} Access to their printing history and page balance allows students to monitor and manage their printing resources effectively. They can make informed decisions about when and how to use their allocated pages.
+\end{itemize}
+\subsubsection{Student Printing Service Officer (SPSO):}
+\begin{itemize}
+\item \textbf{Efficient Printer Management:} SPSO benefits from efficient printer management capabilities, including adding, enabling, or disabling printers. This streamlines the maintenance and operation of the printing service.
+\item \textbf{Configuration Control:} The ability to configure system settings such as default page limits and permitted file types allows SPSO to tailor the printing service to the university's specific requirements and policies. (Source: International Journal of Computer Applications - Secure Printing System for Students in Universities)
+\item \textbf{Usage Insights:} Viewing printing history logs and generating reports provides valuable insights into system usage. This data helps in optimizing resource allocation and planning future upgrades.
+
+\end{itemize}
+\subsubsection{HCMUT Administration:}
+\begin{itemize}
+\item \textbf{Resource Management:} HCMUT-SSPS facilitates effective resource management by providing usage trends and reports. Administrators can make data-driven decisions regarding resource allocation, reducing waste and cost.
+\item \textbf{Enhanced Service:} The system enables the administration to offer an efficient and modern printing service to students, improving the overall quality of services provided on campus.
+\end{itemize}
+\subsubsection{HCMUT IT Department:}
+\begin{itemize}
+\item \textbf{Secure Integration:} The IT Department benefits from the secure integration of HCMUT-SSPS with existing university systems like HCMUT\_SSO and BKPay. This ensures data security and compatibility.
+\item \textbf{Network Efficiency:} By securely setting up the smart printing service within the university network, the IT Department can ensure that the system operates efficiently without compromising network performance.
+\end{itemize}
